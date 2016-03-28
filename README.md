@@ -87,8 +87,38 @@ Finally, your experiment may have several factors with two or more levels. Multi
 2. My count table does not have counts per genes but counts per transcripts - is there anything I need to consider?
     * Yes - in the function `f.write.DEGtabs.to.workbook()` you should set `addGeneCol=TRUE`.
 
+## About c.DEGtab
 
+The results of the DE analysis are stored as c.DEGtab object. This object is implemented as a reference class and has the following functions associated with it:
 
+```R
+DETAB # a c.DEGtab object
+
+# add more data to the tables (this would be saved in the Excel workbooks as well):
+DETAB$add_data(x) # x must be a data.frame - merging is done based on rownames()
+
+# convert the DETAB to a regular data.frame:
+deData <- DETAB$get_table()
+
+# similar, but round, sort and apply some formatting:
+deData <- DETAB$get_print_table()
+
+# extract a list with three gene sets (upregulated in any, conditionA or conditionB):
+sigGenes <- DETAB$get_significant_entries(rawPcut = 1,    # raw P-value cutoff
+                                          adjPcut = 0.05, # FDR cutoff
+                                          LFCcut = 0)     # LFC threshold
+
+# get some simple information on the number of genes upregulated in one or the other
+# condition. The function returns a 3D array with the third dimension being conditionA,
+# conditionB and "simple". 
+stats <- DETAB$get_stats()
+
+# or print them directly:
+DETAB$print_stats()
+
+# (markdown is possible as well)
+DETAB$print_stats_markdown()
+```
 
 
 
