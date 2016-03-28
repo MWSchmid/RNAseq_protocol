@@ -48,33 +48,33 @@ Please note that I that the examples based on real data, which however is not ye
 
 In the most simple case you may have only two groups of samples (e.g. wild-type vs mutant, treated vs mock control or tissue A vs tissue B):
 
-[two group comparison](https://github.com/MWSchmid/RNAseq_protocol/examples/TGNB.md)
+[two group comparison](examples/TGNB.md)
 
 However, you might have processed the samples on different days (hopefully on each day from both conditions...). In this cases it's normally beneficial to include this information as a batch effect:
 
-[two group comparison with batch effect](https://github.com/MWSchmid/RNAseq_protocol/examples/TGWB.md)
+[two group comparison with batch effect](examples/TGWB.md)
 
 Eventually you have more than two groups for which you would like to do all pairwise comparisons:
 
-[multiple two group comparisons](https://github.com/MWSchmid/RNAseq_protocol/examples/MTGNB.md) [REQUIRES EACH GROUP TO BE REPLICATED]
+[multiple two group comparisons](examples/MTGNB.md) [REQUIRES EACH GROUP TO BE REPLICATED]
 
 However, you might have processed these samples as well in batches:
 
-[multiple two group comparisons with batch effect](https://github.com/MWSchmid/RNAseq_protocol/examples/MTGWB.md) [REQUIRES EACH GROUP TO BE REPLICATED]
+[multiple two group comparisons with batch effect](examples/MTGWB.md) [REQUIRES EACH GROUP TO BE REPLICATED]
 
 ## Two-by-two crossed factorial design
 
 You may have two factors in your experiment, e.g. genetic background (wildType vs mutant) and drug treatment (mock vs drug). For cases where one (or both) of the factors have more than two levels (e.g. many different mutants), I recommend to use the approach below. However, in case of two two-level-factors we may also used a crossed factorial design (with/without batch):
 
-[two-by-two factorial design](https://github.com/MWSchmid/RNAseq_protocol/examples/TBTNB.md)
+[two-by-two factorial design](examples/TBTNB.md)
 
-[two-by-two factorial design with batch effect](https://github.com/MWSchmid/RNAseq_protocol/examples/TBTWB.md)
+[two-by-two factorial design with batch effect](examples/TBTWB.md)
 
 ## Single/compound factor with multiple levels
 
 Finally, your experiment may have several factors with two or more levels. Multifactorial models tend to be quickly quite complex and non-intuitive (at least for regular users). Alternatively one can combine all factors and their levels into one single factor with multiple levels. The comparisons of interest can then be done using linear contrasts:
 
-[single/compound factor with several levels](https://github.com/MWSchmid/RNAseq_protocol/examples/MLNB.md) [SOME GROUPS MAY BE UNREPLICATED]
+[single/compound factor with several levels](examples/MLNB.md) [SOME GROUPS MAY BE UNREPLICATED]
 
 (there is no simple one-fits-all solution for the single/compount factor with several levels plus batch effect - well, one can write it out, but it's really lengthy then. And finally - using a model with batch effect is not the best choice in all cases. It's mainly beneficial if the batch effect is strong. Otherwise it is safe (and sometimes better) not to use the batch factor)
 
