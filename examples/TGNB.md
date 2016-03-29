@@ -30,7 +30,7 @@ rDir <- "/path/to/your/working/directory"
 # see the biomart manual for details. At the time I wrote this, biomart.org
 # was not available and I therefore used the DB hosted at ensembl.org.
 
-# Choose an biomart database (only if you were using
+# Choose a biomart database (only if you were using
 # the corresponding reference genome and annotation).
 # To display available marts and datasets for animals
 # and plants (there may also be other hosts):
