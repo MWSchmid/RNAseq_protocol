@@ -151,7 +151,7 @@ y ~ BA + KO*TR
     + mutant_vs_wildType_in_drug: mutant_drug - wildType_drug
     + 1h_vs_mock_in_wildType: wildType_drug - wildType_mock
     + 1h_vs_mock_in_mutant: mutant_drug - mutant_mock
-    + KO_x_TR: (mutant_drug - mutant_mock) - (wildType_drug - wildType_mock)\
+    + KO_x_TR: (mutant_drug - mutant_mock) - (wildType_drug - wildType_mock)
         simplified: drug_vs_mock_in_mutant - drug_vs_mock_in_wildType
 5. Questions addressed by the contrasts ("for a given gene, ..."):
     + mutant_vs_wildType_in_mock: does "the mutation" change its expression before "the treatment"?
