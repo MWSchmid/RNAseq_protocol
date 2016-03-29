@@ -42,7 +42,7 @@ install.packages("/path/to/RNAseqWrapper.tar.gz", repos=NULL)
 
 # RNAseq data analysis examples
 
-Please note that I that the examples based on real data, which however is not yet publicly available. Thus the examples are tested, but I can't supply the test data. Please contact me if you encounter a problem.
+Please note that the examples are based on real data, which however is not yet publicly available. Thus the examples are tested, but I can't supply the test data. Please contact me if you encounter a problem.
 
 ## Pairwise comparisons
 
@@ -50,7 +50,7 @@ In the most simple case you may have only two groups of samples (e.g. wild-type 
 
 [two group comparison](examples/TGNB.md)
 
-However, you might have processed the samples on different days (hopefully on each day from both conditions...). In this cases it's normally beneficial to include this information as a batch effect:
+However, you might have processed the samples on different days (hopefully on each day from both conditions...). In this cases it's sometimes beneficial to include this information as a batch effect:
 
 [two group comparison with batch effect](examples/TGWB.md)
 
@@ -72,7 +72,7 @@ You may have two factors in your experiment, e.g. genetic background (wildType v
 
 ## Single/compound factor with multiple levels
 
-Finally, your experiment may have several factors with two or more levels. Multifactorial models tend to be quickly quite complex and non-intuitive (at least for regular users). Alternatively one can combine all factors and their levels into one single factor with multiple levels. The comparisons of interest can then be done using linear contrasts:
+Finally, your experiment may have several factors with two or more levels. Multifactorial models tend to be quickly quite complex and non-intuitive. Alternatively one can combine all factors and their levels into one single factor with multiple levels. The comparisons of interest can then be done using linear contrasts:
 
 [single/compound factor with several levels](examples/MLNB.md) [SOME GROUPS MAY BE UNREPLICATED]
 
