@@ -76,7 +76,7 @@ Finally, your experiment may have several factors with two or more levels. Multi
 
 [single/compound factor with several levels](examples/MLNB.md) [SOME GROUPS MAY BE UNREPLICATED]
 
-(there is no simple one-fits-all solution for the single/compount factor with several levels plus batch effect - well, one can write it out, but it's really lengthy then. And finally - using a model with batch effect is not the best choice in all cases. It's mainly beneficial if the batch effect is strong. Otherwise it is safe (and sometimes better) not to use the batch factor)
+(there is no simple one-fits-all solution for the single/compound factor with several levels plus batch effect - well, one can write it out, but it's really lengthy then. And finally - using a model with batch effect is not the best choice in all cases. It's mainly beneficial if the batch effect is strong. Otherwise it is safe (and sometimes better) not to use the batch factor)
 
 ## (anticipated) FAQs
 
