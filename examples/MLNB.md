@@ -162,8 +162,8 @@ y ~ 0 + KOxTR__
     + mutant_4h
 2. Contrast formulas:
     + KO_at_0h: mutant_0h - wildType_0h
-    + KO_at_1h: mutant_1h - mock_1h
-    + KO_at_4h: mutant_4h - mock_4h
+    + KO_at_1h: mutant_1h - wildType_1h
+    + KO_at_4h: mutant_4h - wildType_4h
     + TR_1h_at_wildType: wildType_1h - wildType_0h
     + TR_4h_at_wildType: wildType_4h - wildType_0h
     + TR_1h_at_art: art_1h - mutant_0h
