@@ -41,8 +41,28 @@ rDir <- "/path/to/your/working/directory"
 # if possible, use biomaRt to add the gene description in the DE-tables
 # see the biomart manual for details. At the time I wrote this, biomart.org
 # was not available and I therefore used the DB hosted at ensembl.org.
-ensembl <- useMart("ENSEMBL_MART_ENSEMBL", dataset = "mmusculus_gene_ensembl", host="www.ensembl.org")
-biomaRt:::martBM(ensembl) <- "ensembl" # to fix an error further down
+
+# Choose a biomart database (only if you were using
+# the corresponding reference genome and annotation).
+# To display available marts and datasets for animals
+# and plants (there may also be other hosts):
+listMarts(host = "www.ensembl.org")     # animals
+listMarts(host = "plants.ensembl.org")  # plants
+
+# Connect to a database and check whether there
+# is a dataset for -e.g.- Arabidopsis available:
+ensembl <- useMart("plants_mart", host = "plants.ensembl.org")
+ensemblDatasets <- listDatasets(ensembl)
+ensemblDatasets[grep("Arabidopsis", ensemblDatasets$description),]
+
+# Finally connect to the database for A. thaliana:
+ensembl <- useDataset("athaliana_eg_gene", mart = ensembl)
+
+# Set the class of the biomart DB to "ensembl".
+# Note that this is a simple error-workaround
+# which is only necessary for some hosts.
+# I'm not sure if it is still necessary.
+biomaRt:::martBM(ensembl) <- "ensembl"
 
 # if not, set the ensembl variable to NA
 ensembl <- NA
