@@ -50,10 +50,6 @@ ensembl <- NA
 # load the table with the sample annotation
 sampleTab <- read.csv(file.path(rDir, "sampleTab.csv"), row.names = 1, stringsAsFactors = FALSE)
 
-rDir <- "/Users/marc/RNAseq_protocol/data"
-sampleTab <- read.csv("/Users/marc/RNAseq_protocol/examples/MLNB_sampleTab.csv", row.names = 1, stringsAsFactors = FALSE)
-myData <- read.table(file.path(rDir, "ML_counts.txt"), sep = '\t')
-
 # combine the individual columns
 sampleTab <- f.combine.factors.of.sample.table(sampleTab, c("KO", "TR"))
 
