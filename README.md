@@ -81,7 +81,7 @@ Finally, your experiment may have several factors with two or more levels. Multi
 ## (anticipated) FAQs
 
 1. I don't have any replicates, what can I do now?
-    * edgeR and limma will not work, use the individual DESeq2 functions (the single/compound factor should work in any case as long as there are some groups with replicates).
+    * edgeR and limma will not work, use the individual DESeq2 functions (the single/compound factor should work in any case as long as there are some groups with replicates). But - just because DESeq2 may run, it does not mean that you should do it.
     * think about a possible pseudoreplication. It's not very clean, but you sometimes you have the option to treat two different samples as replicates.
     * if it was your doing, don't do it again ;)
 2. My count table does not have counts per genes but counts per transcripts - is there anything I need to consider?
