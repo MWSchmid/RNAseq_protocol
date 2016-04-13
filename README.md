@@ -54,6 +54,8 @@ However, you might have processed the samples on different days (hopefully on ea
 
 [two group comparison with batch effect](examples/TGWB.md)
 
+or a "real-world example": [paired data from the cancer genome atlas](examples/TCGA_pairedSamples.md)
+
 Eventually you have more than two groups for which you would like to do all pairwise comparisons:
 
 [multiple two group comparisons](examples/MTGNB.md) [REQUIRES EACH GROUP TO BE REPLICATED]
