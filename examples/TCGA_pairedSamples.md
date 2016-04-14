@@ -71,7 +71,7 @@ deMatTumor <- matrix(0, nrow = length(anyTumor), ncol = length(pairwiseResults),
 deMatNormal <- matrix(0, nrow = length(anyNormal), ncol = length(pairwiseResults), dimnames = list(anyNormal, names(pairwiseResults)))
 for (CSS in names(pairwiseResults)) {
   #if(length(unique(subset(sampleTab, dataSet == CSS)$participant)) < 30) {next}
-  temp <- pairwiseResults[[CSS]]$get_significant_entries(1, 1e6, 2) # FDR < 0.000001 and logFC > 2
+  temp <- pairwiseResults[[CSS]]$get_significant_entries(1, 1e-6, 2) # FDR < 0.000001 and logFC > 2
   deMatTumor[temp$TP, CSS] <- 1
   deMatNormal[temp$NT, CSS] <- 1
 }
@@ -79,8 +79,6 @@ deCountsTumor <- sort(apply(deMatTumor, 1, sum), decreasing = TRUE) # counts how
 deCountsNormal <- sort(apply(deMatNormal, 1, sum), decreasing = TRUE) # counts how often a gene was significantly upregulated in normal tissue
 head(deCountsTumor) # this shows the genes which were most often found to be upregulated in tumor tissue
 head(deCountsNormal) # this shows the genes which were most often found to be upregulated in normal tissue
-sum(deCountsTumor > 10) # 325
-sum(deCountsNormal > 10) # 341
+sum(deCountsTumor > 10)
+sum(deCountsNormal > 10)
 ```
-
-Hm - silly enough, the alcohol dehydrogenase 1B is one of the top-enriched genes in normal tissues :)
