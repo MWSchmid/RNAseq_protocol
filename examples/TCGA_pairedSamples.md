@@ -58,27 +58,28 @@ write.csv(singleGeneResults, file.path(rDir, "singleGeneResult.csv"), row.names 
 #########################################################################################
 # you could also try to get the genes which are consistently enriched in either normal or tumor tissue
 # across several different types of cancer.
-sigCollection <- list(tumor = list(), normal = list())
-for (CSS in names(pairwiseResults)) {
-  #if(length(unique(subset(sampleTab, dataSet == CSS)$participant)) < 30) {next}
-  temp <- pairwiseResults[[CSS]]$get_significant_entries(1, 1e6, 2)
-  sigCollection$tumor[[CSS]] <- temp$TP
-  sigCollection$normal[[CSS]] <- temp$NT
+maxFDR <- 1e-6
+minLFC <- 2
+minimalNumberOfParticipants <- 3
+participantsPerStudy <- aggregate(sampleTab$participant, by = list(study = sampleTab$dataSet), function(x) length(unique(x)), simplify = TRUE)
+dataSets <- participantsPerStudy$study[participantsPerStudy$x >= minimalNumberOfParticipants]
+
+# get binary matrices for significant or not
+deMat <- list(
+  normal = matrix(0, nrow = nrow(myData), ncol = length(dataSets), dimnames = list(rownames(myData), dataSets)),
+  tumor = matrix(0, nrow = nrow(myData), ncol = length(dataSets), dimnames = list(rownames(myData), dataSets))
+)
+for (CSS in dataSets) {
+  temp <- pairwiseResults[[CSS]]$get_significant_entries(1, maxFDR, minLFC)
+  deMat$normal[temp$NT, CSS] <- 1
+  deMat$tumor[temp$TP, CSS] <- 1
 }
-anyTumor <- Reduce(union, sigCollection$tumor)
-anyNormal <- Reduce(union, sigCollection$normal)
-deMatTumor <- matrix(0, nrow = length(anyTumor), ncol = length(pairwiseResults), dimnames = list(anyTumor, names(pairwiseResults)))
-deMatNormal <- matrix(0, nrow = length(anyNormal), ncol = length(pairwiseResults), dimnames = list(anyNormal, names(pairwiseResults)))
-for (CSS in names(pairwiseResults)) {
-  #if(length(unique(subset(sampleTab, dataSet == CSS)$participant)) < 30) {next}
-  temp <- pairwiseResults[[CSS]]$get_significant_entries(1, 1e-6, 2) # FDR < 0.000001 and logFC > 2
-  deMatTumor[temp$TP, CSS] <- 1
-  deMatNormal[temp$NT, CSS] <- 1
-}
-deCountsTumor <- sort(apply(deMatTumor, 1, sum), decreasing = TRUE) # counts how often a gene was significantly upregulated in tumor tissue
-deCountsNormal <- sort(apply(deMatNormal, 1, sum), decreasing = TRUE) # counts how often a gene was significantly upregulated in normal tissue
-head(deCountsTumor) # this shows the genes which were most often found to be upregulated in tumor tissue
-head(deCountsNormal) # this shows the genes which were most often found to be upregulated in normal tissue
-sum(deCountsTumor > 10)
-sum(deCountsNormal > 10)
+
+# count how often a gene was significantly upregulated in tumor/normal tissue
+deCounts <- lapply(deMat, function(x) sort(apply(x, 1, sum), decreasing = TRUE))
+
+head(deCounts$tumor) # top tumor
+head(deCounts$normal) # top normal
+sum(deCounts$tumor > 10)
+sum(deCounts$normal > 10)
 ```
