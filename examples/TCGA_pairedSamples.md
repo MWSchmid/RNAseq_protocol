@@ -18,15 +18,21 @@ rDir <- "/path/to/your/working/directory"
 sampleTab <- read.csv(file.path(rDir, "pairedSamplesAnnotation.csv"), colClasses = "character")
 myData <- read.csv(file.path(rDir, "pairedSamplesRaw.csv"), row.names = 1)
 
+# set some parameters
+maxFDR <- 1e-6
+minLFC <- 2
+minimalNumberOfParticipants <- 3
+participantsPerStudy <- aggregate(sampleTab$participant, by = list(study = sampleTab$dataSet), function(x) length(unique(x)), simplify = TRUE)
+dataSets <- participantsPerStudy$study[participantsPerStudy$x >= minimalNumberOfParticipants]
+
 # do one pairwise comparison per cancer type - normal vs tumor
 # use the patient/participant ID as batch (treat it as paired)
 # we are now only using edgeR with trended dispersion estimates.
 # Feel free to try something else.
 pairwiseResults <- list()
-for (CSS in unique(sampleTab$dataSet)) {
+for (CSS in dataSets) {
   cat(CSS, "\n")
   subSampleTab <- subset(sampleTab, dataSet == CSS)
-  if (sum(subSampleTab$sampleType == "NT") < 3) { next }
   subData <- myData[,subSampleTab$uuid]
   pairwiseResults[[CSS]] <- f.two.groups.edgeR(subData, subSampleTab$sampleType,
                                                c("NT", "TP"), method = "trended", 
@@ -57,14 +63,7 @@ write.csv(singleGeneResults, file.path(rDir, "singleGeneResult.csv"), row.names 
 
 #########################################################################################
 # you could also try to get the genes which are consistently enriched in either normal or tumor tissue
-# across several different types of cancer.
-maxFDR <- 1e-6
-minLFC <- 2
-minimalNumberOfParticipants <- 3
-participantsPerStudy <- aggregate(sampleTab$participant, by = list(study = sampleTab$dataSet), function(x) length(unique(x)), simplify = TRUE)
-dataSets <- participantsPerStudy$study[participantsPerStudy$x >= minimalNumberOfParticipants]
-
-# get binary matrices for significant or not
+# across several different types of cancer. Get binary matrices for significant or not:
 deMat <- list(
   normal = matrix(0, nrow = nrow(myData), ncol = length(dataSets), dimnames = list(rownames(myData), dataSets)),
   tumor = matrix(0, nrow = nrow(myData), ncol = length(dataSets), dimnames = list(rownames(myData), dataSets))
