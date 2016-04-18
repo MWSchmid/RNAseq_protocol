@@ -81,4 +81,45 @@ head(deCounts$tumor) # top tumor
 head(deCounts$normal) # top normal
 sum(deCounts$tumor > 10)
 sum(deCounts$normal > 10)
+
+#########################################################################################
+# plot a heatmap with the top DE genes - average logFCs in all the studies tested
+library("gplots")
+
+# normalize the data
+normData <- list(
+  logCounts = f.normalize.counts.edgeR(myData, logCPM = FALSE),
+  logCPM = f.normalize.counts.edgeR(myData, logCPM = TRUE)
+)
+
+# get logFCs
+sum(table(sampleTab$participant) != 2) # ok - now they are really all paired
+sampleTab <- sampleTab[with(sampleTab, order(participant, sampleType)),]
+sampleTab$participant <- paste0("part_", sampleTab$participant)
+uuidSortedNT <- sampleTab$uuid[sampleTab$sampleType=="NT"]
+uuidSortedTP <- sampleTab$uuid[sampleTab$sampleType=="TP"]
+partSorted <- sampleTab$participant[sampleTab$sampleType=="TP"]
+lfcData <- lapply(normData, function(x) x[,uuidSortedTP]-x[,uuidSortedNT])
+for (nds in names(lfcData)) {colnames(lfcData[[nds]]) <- partSorted}
+
+# average the LFC
+byTab <- data.frame(sample=sampleTab$participant, group=sampleTab$dataSet, stringsAsFactors = FALSE)
+aveLFCdata <- lapply(lfcData, function(x) f.summarize.columns(x, byTab, mean))
+
+# plot them
+numCols <- 21
+metaMarker <- lapply(deCounts, function(x) names(x)[x > 10])
+for (nds in names(aveLFCdata)) {
+  tiff(file.path(rDir, paste0("topMarkers_", nds, ".tiff")), width = 1600, height = 3200, compression = "lzw", pointsize = 24)
+  heatmap.2(aveLFCdata[[nds]][unlist(metaMarker),], col = RNAseqWrapper:::f.blueblackyellow(numCols), trace="none", scale = "none", margins = c(15,15), breaks = seq(-8, 8, length.out = numCols+1))
+  dev.off()
+}
+
+# write out the csvs
+for (nds in names(aveLFCdata)) {
+  write.csv(aveLFCdata[[nds]][unlist(metaMarker),], file.path(rDir, paste0("topMarkers_", nds, ".csv")))
+}
 ```
+
+![topMarkers](topMarkers_logCounts.tiff)
+
