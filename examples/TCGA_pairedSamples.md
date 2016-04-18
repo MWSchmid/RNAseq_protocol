@@ -121,5 +121,5 @@ for (nds in names(aveLFCdata)) {
 }
 ```
 
-![topMarkers](topMarkers_logCounts.tiff)
+![topMarkers](topMarkers_logCounts.png)
 
