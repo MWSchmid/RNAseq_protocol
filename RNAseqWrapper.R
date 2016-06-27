@@ -2484,7 +2484,7 @@ f.internal.get.relevant.chromosomes <- function(chromList) {
 #######################################################################################################################################
 #######################################################################################################################################
 #######################################################################################################################################
-#' Retrieve promoter regions regions.
+#' Retrieve promoter regions.
 #'@param mart the mart to use (e.g. useMart("ensembl", dataset = "mmusculus_gene_ensembl"))
 #'@param rDir directory where the file is stored
 #'@param us upstream bp
@@ -2520,6 +2520,48 @@ f.get.promoter.regions <- function(mart, rDir, us = 2e3, ds = 5e2) {
   outFile <- file.path(rDir, paste("promoter_", us, "_", ds, ".txt", sep = ''))
   write.table(out, outFile, sep = '\t', quote = FALSE)
   cat("saved promoters in", outFile, "\n")
+  return(out)
+}
+
+#######################################################################################################################################
+#######################################################################################################################################
+#######################################################################################################################################
+#' Retrieve TES regions.
+#'@param mart the mart to use (e.g. useMart("ensembl", dataset = "mmusculus_gene_ensembl"))
+#'@param rDir directory where the file is stored
+#'@param us upstream bp
+#'@param ds downstream bp
+#'@return the TES regions
+#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@export
+f.get.TES.regions <- function(mart, rDir, us = 2e3, ds = 2e3) {
+  require("biomaRt")
+  toRetrieve <- c("ensembl_gene_id",
+                  "gene_biotype",
+                  "ensembl_transcript_id",
+                  "transcript_biotype",
+                  "chromosome_name",
+                  "strand", 
+                  "transcript_end")
+  data <- getBM(attributes = toRetrieve, mart = mart)
+  out <- data.frame(GeneID = data$ensembl_gene_id,
+                    Chr = data$chromosome_name,
+                    Start = data$transcript_end - data$strand*us,
+                    End = data$transcript_end + data$strand*ds, 
+                    Strand = ifelse(data$strand == 1, "+", "-"), 
+                    GeneType = data$gene_biotype,
+                    TransType = data$transcript_biotype,
+                    stringsAsFactors = FALSE, row.names = data$ensembl_transcript_id)
+  out[out$Strand == "-", c("Start", "End")] <- out[out$Strand == "-", c("End", "Start")]
+  # remove weird chromosomes
+  toKeep <- f.internal.get.relevant.chromosomes(unique(out$Chr))
+  before <- nrow(out)
+  out <- out[out$Chr %in% toKeep,]
+  cat("removed", before-nrow(out), "entries which were not on regular chromosomes\n")
+  # save to outfile
+  outFile <- file.path(rDir, paste("TES_", us, "_", ds, ".txt", sep = ''))
+  write.table(out, outFile, sep = '\t', quote = FALSE)
+  cat("saved TES in", outFile, "\n")
   return(out)
 }
 
