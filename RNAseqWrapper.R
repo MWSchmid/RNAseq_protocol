@@ -2696,6 +2696,70 @@ f.get.exon.regions <- function(mart, rDir) {
 #######################################################################################################################################
 #######################################################################################################################################
 #######################################################################################################################################
+#' Create Rcount project files
+#'@param sampleName name of the sample
+#'@param annotationXML path to the Rcount annotation file (.xml)
+#'@param readsInfile path to the input bam-file (.bam)
+#'@param readsOutfile path to the output bam-file (.bam)
+#'@param countTableFile path to the output count table (.txt)
+#'@param OUTprojectXML path to the Rcount project file (.xml)
+#'@param useMulti: true or false (character!)
+#'@param useStrand: false, sense or antisense
+#'@param minReads: see note
+#'@param maxDist: see note
+#'@param minBelowMaxDist: see note
+#'@return NULL - creates a Rcount project file.
+#'@note Genes must have at least "minReads" reads in total and "minBelowMaxDist"_" reads
+#' within the first "maxDist" bps at the 3' end (see reference for details).
+#' The parameters may be chosen according to the total number of reads and
+#' the genome/transcriptome size.
+#'@references 
+#'Schmid, M.W. and Grossniklaus, U. (2015)
+#'Rcount: simple and flexible RNA-Seq read counting.\emph{Bioinformatics} \bold{31}: 436-437.
+#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@export
+f.write.Rcount.project.file <- function(sampleName, annotationXML, readsInfile, readsOutfile, countTableFile, OUTprojectXML, 
+                                        useMulti = "true", useStrand = "false", minReads = 5, maxDist = 250, minBelowMaxDist = 1) {
+  lines <- c('<?xml version="1.0" encoding="UTF-8"?>',
+             '<p502project version="1.0">',
+             paste0('<name entry="', sampleName,'">'),
+             '<files entry="">',
+             paste0('<dataBaseInfile entry="', annotationXML, '"/>'),
+             '<dataBaseOutfile entry=""/>',
+             paste0('<readsInfile entry="', readsInfile, '"/>'),
+             paste0('<readsOutfile entry="', readsOutfile, '"/>'),
+             paste0('<countTableFile entry="', countTableFile, '"/>'),
+             '</files>',
+             '<parameters entry="">',
+             paste0('<multi entry="', useMulti, '"/>'),
+             paste0('<stranded entry="', useStrand, '"/>'),
+             paste0('<minReads entry="', minReads, '"/>'),
+             paste0('<maxDist entry="', maxDist, '"/>'),
+             paste0('<minBelowMaxDist entry="', minBelowMaxDist, '"/>'),
+             '</parameters>',
+             '<region entry="">',
+             '<useRegion entry="false"/>',
+             '<regionStartName entry=""/>',
+             '<regionStart entry="0"/>',
+             '<regionEndName entry=""/>',
+             '<regionEnd entry="0"/>',
+             '</region>',
+             '<settings entry="">',
+             '<indexStepSize entry="10000"/>',
+             '<bufferSizeBAM entry="200000"/>',
+             '<bufferSizeMAP entry="200000"/>',
+             '<bufferSizeOUT entry="200000"/>',
+             '</settings>',
+             '</name>',
+             '</p502project>')
+  output <- file(OUTprojectXML, open = "w")
+  for (outLine in lines) {
+    writeLines(outLine, output)
+  }
+  close(output)
+  return(NULL)
+}
+
 #' Downloads samples from SRA
 #'@param readsDir path to a folder where the raw read files will be stored.
 #'@param metaDB path to the SRA database with the metadata ("SRAmetadb.sqlite"); will be downloaded if the file does not exist.
