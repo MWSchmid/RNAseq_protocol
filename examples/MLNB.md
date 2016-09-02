@@ -159,10 +159,11 @@ myNormData <- f.all.normalizations(myData, sampleTab, formulaString, design)
 # limma_quantile
 
 # optional: calculate the mean/median/sum/sd within each condition
+forMean <- myNormData$DESeq_default
 byTab <- data.frame(sample = rownames(sampleTab),
                     group = sampleTab$KOxTR__,
                     stringsAsFactors = FALSE)
-meanTab <- f.summarize.columns(myData, byTab, mean)
+meanTab <- f.summarize.columns(forMean, byTab, mean)
 ```
 
 ## Some words on the model:
