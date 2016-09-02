@@ -160,7 +160,7 @@ myNormData <- f.all.normalizations(myData, sampleTab, formulaString, design)
 
 # optional: calculate the mean/median/sum/sd within each condition
 byTab <- data.frame(sample = rownames(sampleTab),
-                    group = "KOxTR__",
+                    group = sampleTab$KOxTR__,
                     stringsAsFactors = FALSE)
 meanTab <- f.summarize.columns(myData, byTab, mean)
 ```
