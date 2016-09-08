@@ -1026,7 +1026,7 @@ f.allinone <- function(data, rDir, rt = 0, prefix = "", scaleToSample = FALSE)
 #'@param corUse see "use" in \code{\link{cor}}
 #'@author Marc W. Schmid \email{marcschmid@@gmx.ch}
 #'@export
-f.generic.correlation.matrix <- function(data, rDir, outfile, corMethod = "pearson", useOnlyHighVar = FALSE, tryAutoColor = TRUE, highVarPercentile = 0.9, corUse = "everything") {
+f.generic.correlation.matrix <- function(data, rDir, outfile, corMethod = "pearson", useOnlyHighVar = FALSE, tryAutoColor = TRUE, highVarPercentile = 0.9, corUse = "everything", ...) {
   require("gplots")
   if (useOnlyHighVar) {
     varVec <- apply(data, 1, var)
@@ -1054,9 +1054,9 @@ f.generic.correlation.matrix <- function(data, rDir, outfile, corMethod = "pears
   if (nrow(sampleCorMat) > 12) { noteCex <- 2 }
   if (nrow(sampleCorMat) > 18) { noteCex <- 1 }
   if (nrow(sampleCorMat) > 30) { #no notes
-    heatmap.2(sampleCorMat, col = f.blueredyellow(numCols), trace="none", scale = "none", margins = c(15,15), breaks = seq(minCor, maxCor, length.out = numCols+1))
+    heatmap.2(sampleCorMat, col = f.blueredyellow(numCols), trace="none", scale = "none", margins = c(15,15), breaks = seq(minCor, maxCor, length.out = numCols+1), ...)
   } else {
-    heatmap.2(sampleCorMat, col = f.blueredyellow(numCols), trace="none", scale = "none", margins = c(15,15), cellnote = round(sampleCorMat,2), notecol = "black", notecex = noteCex, breaks = seq(minCor, maxCor, length.out = numCols+1), cexRow = labelCex, cexCol = labelCex)
+    heatmap.2(sampleCorMat, col = f.blueredyellow(numCols), trace="none", scale = "none", margins = c(15,15), cellnote = round(sampleCorMat,2), notecol = "black", notecex = noteCex, breaks = seq(minCor, maxCor, length.out = numCols+1), cexRow = labelCex, cexCol = labelCex, ...)
   }
   dev.off()
 }
