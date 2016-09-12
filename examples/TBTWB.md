@@ -147,7 +147,7 @@ y ~ BA + KO*TR
 3. BA:
     + three complete blocks (triplicates)
 4. Contrast formulas:
-    + mutant_vs_wildType_in_mock: art_mock - wildType_mock
+    + mutant_vs_wildType_in_mock: mutant_mock - wildType_mock
     + mutant_vs_wildType_in_drug: mutant_drug - wildType_drug
     + 1h_vs_mock_in_wildType: wildType_drug - wildType_mock
     + 1h_vs_mock_in_mutant: mutant_drug - mutant_mock
