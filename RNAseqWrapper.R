@@ -1993,7 +1993,7 @@ f.prepare.two.by.two.analysis <- function(sampleTab, factorA, factorB, batchCol 
   if (!(is.factor(sampleTab[[factorA]]) & is.factor(sampleTab[[factorB]]))) { cat("convert the variables in the sampleTab into factors first.\n"); stop(); }
   if (!((length(levels(sampleTab[[factorA]])) == 2) & (length(levels(sampleTab[[factorB]])) == 2))) { cat("this is only available for 2x2 factor designs.\n"); stop(); }
   doBatch <- nchar(batchCol) > 0
-  if (!(is.factor(sampleTab[[batchCol]]))) { cat("convert the batch variable into a factor first.\n"); stop(); }
+  if (doBatch & !(is.factor(sampleTab[[batchCol]]))) { cat("convert the batch variable into a factor first.\n"); stop(); }
   A_first <- levels(sampleTab[[factorA]])[1]
   A_second <- levels(sampleTab[[factorA]])[2]
   B_first <- levels(sampleTab[[factorB]])[1]
