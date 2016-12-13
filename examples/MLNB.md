@@ -186,13 +186,13 @@ y ~ 0 + KOxTR__
     + TR_1h_at_art: art_1h - mutant_0h
     + TR_4h_at_art: art_4h - mutant_0h
     + INT_at_1h: (mutant_1h - mutant_0h) - (wildType_1h - wildType_0h)
-        simplified: TR_1h_at_mutant - TR_1h_at_wildType
+        * simplified: TR_1h_at_mutant - TR_1h_at_wildType
     + INT_at_4h: (mutant_4h - mutant_0h) - (wildType_4h - wildType_0h)
-        simplified: TR_4h_at_mutant - TR_4h_at_wildType
+        * simplified: TR_4h_at_mutant - TR_4h_at_wildType
     + KO: ((mutant_0h - wildType_0h) + (mutant_1h - wildType_1h) + (mutant_4h - wildType_4h))/3
-        simplified: (KO_at_0h + KO_at_1h + KO_at_4h)/3
+        * simplified: (KO_at_0h + KO_at_1h + KO_at_4h)/3
     + LPS: ((mutant_1h - mutant_0h) + (mutant_4h - mutant_0h) + (wildType_1h - wildType_0h) + (wildType_4h - wildType_0h))/4
-        simplified: (TR_1h_at_wildType + TR_4h_at_wildType + TR_1h_at_mutant + TR_4h_at_mutant)/4
+        * simplified: (TR_1h_at_wildType + TR_4h_at_wildType + TR_1h_at_mutant + TR_4h_at_mutant)/4
 3. Questions addressed by the contrasts ("for a given gene, ..."):
     + KO_at_0h: does "the mutation" change its expression before "the treatment"?
     + KO_at_1h: does "the mutation" change its expression 1 hour after "the treatment"?
