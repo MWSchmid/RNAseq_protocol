@@ -38,6 +38,8 @@ biocLite(c("biomaRt", "DESeq2", "edgeR", "limma", "XLConnect", "gplots", "colorR
 Download [RNAseqWrapper](RNAseqWrapper_0.99.0.tar.gz?raw=true) and install it:
 ```R
 install.packages("/path/to/RNAseqWrapper_0.99.0.tar.gz", repos=NULL)
+# you may need to specify the type:
+install.packages("/path/to/RNAseqWrapper_0.99.0.tar.gz", repos=NULL, type="source")
 ```
 
 # RNAseq data analysis examples
