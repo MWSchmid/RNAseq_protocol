@@ -16,7 +16,7 @@ If you are on an Ubuntu-like system and if you would like to have the newest ver
 # sudo add-apt-repository "deb http://<MIRR>/bin/linux/ubuntu <VERS>/"
 # <VERS>: Ubuntu version (code name; e.g. "trusty" for Ubuntu 14.04)
 # <MIRR>: A mirror listed on https://cran.r-project.org/mirrors.html 
-sudo add-apt-repository "deb http://stat.ethz.ch/bin/linux/ubuntu trusty/"
+sudo add-apt-repository "deb https://stat.ethz.ch/CRAN/bin/linux/ubuntu trusty/"
 
 ## add the authentication key
 sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
@@ -32,7 +32,7 @@ RNAseqWrapper imports several other packages. Install the following dependencies
 ```R
 source("http://bioconductor.org/biocLite.R")
 biocLite()
-biocLite(c("biomaRt", "DESeq2", "edgeR", "limma", "XLConnect", "gplots", "colorRamps"))
+biocLite(c("biomaRt", "DESeq2", "edgeR", "limma", "XLConnect", "gplots", "colorRamps", "SRAdb"))
 ```
 
 Download [RNAseqWrapper](RNAseqWrapper_0.99.0.tar.gz?raw=true) and install it:
