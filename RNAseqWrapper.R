@@ -14,12 +14,12 @@
 
 #' a global variable for plotting control.
 #'@note using quartz on MacOSX disables the lzw compression of tiffs - this variable changes the default to "Xlib" (only on MacOS)
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}
 GLOBAL_VARIABLE_TIFF_LIB <- getOption("bitmapType"); if (Sys.info()['sysname'] == "Darwin") { GLOBAL_VARIABLE_TIFF_LIB <- "Xlib" }
 
 #' a global variable for plotting control.
 #'@note set to true if you wish some plots to be saved as svg instead of tiff/png.
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}
 GLOBAL_VARIABLE_USE_SVG <- TRUE; if (Sys.info()['sysname'] == "Darwin") { GLOBAL_VARIABLE_USE_SVG <- FALSE }
 
 #######################################################################################################################################
@@ -34,7 +34,7 @@ GLOBAL_VARIABLE_USE_SVG <- TRUE; if (Sys.info()['sysname'] == "Darwin") { GLOBAL
 #'@param aSep the separator used in the files
 #'@param useHeader set to TRUE if tables contain column names. WARNING: aHead is still required.
 #'@return a list of matrices containing values from all files - so for every header/datatype one matrix
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 #'@export
 f.read.files.from.directory <- function(aDir, aExp, aExt, aExc, aHead, aSep, useHeader = FALSE) {
   # WARNING useHeader still neads aHead (it just tells if the first row shall be removed or not)
@@ -73,7 +73,7 @@ f.read.files.from.directory <- function(aDir, aExp, aExt, aExc, aHead, aSep, use
 #'@param aSep the separator used in the files
 #'@param useHeader set to TRUE if tables contain column names. WARNING: aHead is still required.
 #'@return a list of matrices containing values from all files - so for every header/datatype one matrix
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 #'@export
 f.read.files.from.given.list <- function(aDir, aFiles, aHead, aNames = c(), aSep = '\t', useHeader = FALSE) {
   # WARNING useHeader still neads aHead (it just tells if the first row shall be removed or not)
@@ -108,7 +108,7 @@ f.read.files.from.given.list <- function(aDir, aFiles, aHead, aNames = c(), aSep
 #'@param aExt a file extension required for the file to be read
 #'@param aExc a regular expression which should be omitted in the file names
 #'@return a list of vectors read from the files
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 #'@export
 f.read.lists.from.directory <- function(aDir, aExp, aExt, aExc) {
   # 
@@ -132,7 +132,7 @@ f.read.lists.from.directory <- function(aDir, aExp, aExt, aExc) {
 #'@param aExc a regular expression which should be omitted in the file names
 #'@param toReturn the column of interest (normally TH)
 #'@return a data.frame with Rcount gene expression values
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 #'@export
 f.read.Rcount <- function(aDir, aExp = "", aExc = "", toReturn = "TH") {
   fullData <- f.read.files.from.directory(aDir, aExp, ".txt", aExc, c("sumUnAmb", "sumAmb", "sumAllo", "sumDistUnAmb", "sumDistAmb", "sumDistAllo", "TH", "VAL"), "\t")
@@ -148,7 +148,7 @@ f.read.Rcount <- function(aDir, aExp = "", aExc = "", toReturn = "TH") {
 #'@param aExp a regular expression required within the file name
 #'@param aExc a regular expression which should be omitted in the file names
 #'@return a data.frame with featureCounts expression values
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 #'@export
 f.read.featureCounts <- function(aDir, aExp = "", aExc = "") {
   fullData <- f.read.files.from.directory(aDir, aExp, ".txt", aExc, c("counts"), "\t", TRUE)
@@ -162,7 +162,7 @@ f.read.featureCounts <- function(aDir, aExp = "", aExc = "") {
 #' Check whether a FASTQ file has a PHRED offset of 33 or 64
 #'@param fastq a fastq file (may be gzipped)
 #'@return the PHRED offset: either 33 or 64
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 #'@export
 f.check.phred.offset <- function(fastq) {
   # open a connection to the file
@@ -206,7 +206,7 @@ f.check.phred.offset <- function(fastq) {
 #'@param byTab <dataframe>: at least two columns: sample and group
 #'@param summaryFunction: a function like mean, median, sum
 #'@return the summarized table (a matrix)
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 #'@export
 f.summarize.columns <- function(x, byTab, summaryFunction) {
   byTab$sample <- as.character(byTab$sample)
@@ -228,7 +228,7 @@ f.summarize.columns <- function(x, byTab, summaryFunction) {
 #'@param x values
 #'@param rt threshold
 #'@return logical vector
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 #'@export
 f.comp <- function(x,rt){
   if(rt==0){y <- x>0}
@@ -245,7 +245,7 @@ f.comp <- function(x,rt){
 #'@param ext fraction of extreme values to remove (two-sided! 0.05 removes in total 10\% of all values)
 #'@param viaRanks filter based on ranks - I don't remember anymore why I did this
 #'@return table without the "ext" highest and the "ext" lowest values in the specified column
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 #'@export
 f.trim <- function(x, cn, ext = 0.05, viaRanks = FALSE) {
   if (viaRanks) {
@@ -271,7 +271,7 @@ f.trim <- function(x, cn, ext = 0.05, viaRanks = FALSE) {
 #'@param y another matrix
 #'@param rt a threshold - remove rows which are all below it (in case of 0, it tests for >, not >=)
 #'@return merged matrix
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 #'@export
 f.merge.two.matrices <- function(x,y,rt){
   RID <- union(rownames(x), rownames(y))
@@ -295,7 +295,7 @@ f.merge.two.matrices <- function(x,y,rt){
 #'@param x a vector
 #'@param logFun a logarithm funtion
 #'@return a vector with the log values
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 #'@export
 f.log.twosided <- function(x, logFun) {
   if (sum(is.na(x))>0) {
@@ -315,7 +315,7 @@ f.log.twosided <- function(x, logFun) {
 #'@return a vector with the transformed values
 #'@references 
 #'TODO: ADD THE REFERENCE
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 #'@export
 f.stahel.trafo <- function(x) {
   med <- median(x, na.rm = TRUE)
@@ -339,7 +339,7 @@ f.stahel.trafo <- function(x) {
 #'@param sortedGenes a named (genes) vector (e.g. logFC) - SORTED!
 #'@param myGOIs genes of interest
 #'@return cumulative sum (like in the GSEA plot)
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 #'@export
 f.calculate.GSEA.sum <- function(sortedGenes, myGOIs) {
   numGOIs <- length(myGOIs)
@@ -360,7 +360,7 @@ f.calculate.GSEA.sum <- function(sortedGenes, myGOIs) {
 #'@param sortedGenes a named (genes) vector (e.g. logFC) - SORTED!
 #'@param myGOIs genes of interest
 #'@return maximal enrichment value (used to compare to random sampling)
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 #'@export
 f.calculate.max.GSEA.enrichment <- function(sortedGenes, myGOIs) {
   cumSum <- f.calculate.GSEA.sum(sortedGenes, myGOIs)
@@ -380,7 +380,7 @@ f.calculate.max.GSEA.enrichment <- function(sortedGenes, myGOIs) {
 #'@param sortName a label vor the values (e.g., "logFC")
 #'@param numReps number of random sets
 #'@return a plot (saved as svg) and list with the pValue and enrichment scores
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 #'@export
 f.do.GSEA.like.test <- function(namedValues, GOIs, rDir, filePrefix = "", mainTitle = "", sortName = "LFC", numReps = 10000) {
   sortedGenes <- names(namedValues)
@@ -424,7 +424,8 @@ f.do.GSEA.like.test <- function(namedValues, GOIs, rDir, filePrefix = "", mainTi
 #'@param summaryFunction see "otherCols"
 #'@param gap the maximal size of the gap between two fragments to be merged
 #'@return a data frame with the joined fragments (cols are chrom, start, end, count, otherCols)
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@note WARNING: THIS FUNCTION DOES NOT WORK IF FRAGMENTS ARE ENTIRELY WITHIN ANOTHER FRAGMENT - IT ASSUMES PARTIAL OVERLAP FROM ONE TO THE NEXT
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 #'@export
 f.join.overlapping.fragments <- function(data, otherCols, summaryFunction, gap = 0) {
   data <- data[with(data, order(chrom, start, end)),]
@@ -463,7 +464,8 @@ f.join.overlapping.fragments <- function(data, otherCols, summaryFunction, gap =
 #'@param dirCol the name of the column which is used to decide wheter two fragments should be merged or not (based on the sign of the values)
 #'@param gap the maximal size of the gap between two fragments to be merged
 #'@return a data frame with the joined fragments (cols are chrom, start, end, count, otherCols)
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@note WARNING: THIS FUNCTION DOES NOT WORK IF FRAGMENTS ARE ENTIRELY WITHIN ANOTHER FRAGMENT - IT ASSUMES PARTIAL OVERLAP FROM ONE TO THE NEXT
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 #'@export
 f.join.overlapping.fragments.directional <- function(data, otherCols, summaryFunction, dirCol, gap = 0) {
   data <- data[with(data, order(chrom, start, end)),]
@@ -500,7 +502,7 @@ f.join.overlapping.fragments.directional <- function(data, otherCols, summaryFun
 #'@param data a data frame with at least four columns: chrom, start, end, and strand (encoded as 1 and -1)
 #'@param otherRegions a data frame with the regions to search in, three columns: chrom, start, and end
 #'@return a data frame with the upstream and downstream distances
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 #'@export
 f.get.closest.region <- function(data, otherRegions) {
   f.get.min.dist <- function(x, y) {
@@ -553,7 +555,7 @@ f.get.closest.region <- function(data, otherRegions) {
 #'@note aside the column <newName> with the merged data, there will be another column
 #'called "factor_<newName>". The latter specifies the origin of the data in the <newName>
 #'column.
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 #'@export
 f.wide.to.long <- function(tab, cols, newName) {
   outList <- list()
@@ -589,7 +591,7 @@ f.wide.to.long <- function(tab, cols, newName) {
 #'@param futureCols the column containing the rownames of the wide table
 #'@param futureEntries the column containing the values
 #'@return a data frame in wide format
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 #'@export
 f.long.to.wide <- function(tab, futureRows, futureCols, futureEntries) {
   empty <- ifelse(is.numeric(tab[[futureEntries]]), 0, "")
@@ -607,7 +609,7 @@ f.long.to.wide <- function(tab, futureRows, futureCols, futureEntries) {
 #######################################################################################################################################
 #######################################################################################################################################
 #' undocumented internal function
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 f.genetodensity <- function(x,y) {
   require("MASS")
   est <- kde2d(x, y, n = 50) # needs MASS - calculates the two dimensional density
@@ -627,7 +629,7 @@ f.genetodensity <- function(x,y) {
 #######################################################################################################################################
 #######################################################################################################################################
 #' undocumented internal function
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 f.genetodensitycolor <- function(x,y) {
   require("MASS")
   require("colorRamps")
@@ -667,7 +669,7 @@ f.genetodensitycolor <- function(x,y) {
 #######################################################################################################################################
 #######################################################################################################################################
 #' undocumented internal function
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 f.yellowblueblack <- function(x) {
   #rg <- approx(c(0, 0.5, 1), c(1, 1/3, 0), n = x)$y
   #b <- approx(c(0, 0.5, 1), c(2/3, 2/3, 0), n = x)$y
@@ -677,7 +679,7 @@ f.yellowblueblack <- function(x) {
 }
 
 #' undocumented internal function
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 f.yellowblackblue <- function(x) {
   #rg <- approx(c(0, 1, 0.5), c(1, 1/3, 0), n = x)$y
   #b <- approx(c(0, 1, 0.5), c(2/3, 2/3, 0), n = x)$y
@@ -687,7 +689,7 @@ f.yellowblackblue <- function(x) {
 }
 
 #' undocumented internal function
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 f.yellowredblue <- function(x) {
   r <- approx(c(0, 0.5, 1), c(1, 1, 0), n = x)$y
   g <- approx(c(0, 0.5, 1), c(1, 0, 0), n = x)$y
@@ -696,7 +698,7 @@ f.yellowredblue <- function(x) {
 }
 
 #' undocumented internal function
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 f.yellowblack <- function(x) {
   rg <- approx(c(0, 1), c(1, 0), n = x)$y
   b <- approx(c(0, 1), c(0, 0), n = x)$y
@@ -704,7 +706,7 @@ f.yellowblack <- function(x) {
 }
 
 #' undocumented internal function
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 f.yellowredblack <- function(x) {
   r <- approx(c(0, 0.5, 1), c(1, 1, 0), n = x)$y
   g <- approx(c(0, 0.5, 1), c(1, 0, 0), n = x)$y
@@ -713,7 +715,7 @@ f.yellowredblack <- function(x) {
 }
 
 #' undocumented internal function
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 f.redwhiteblack <- function(x) {
   r <- approx(c(0, 0.5, 1), c(1, 1, 0), n = x)$y
   g <- approx(c(0, 0.5, 1), c(0, 1, 0), n = x)$y
@@ -722,37 +724,37 @@ f.redwhiteblack <- function(x) {
 }
 
 #' undocumented internal function
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 f.blackblueyellow <- function(x) {
   return(rev(f.yellowblueblack(x)))
 }
 
 #' undocumented internal function
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 f.blueblackyellow <- function(x) {
   return(rev(f.yellowblackblue(x)))
 }
 
 #' undocumented internal function
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 f.blueredyellow <- function(x) {
   return(rev(f.yellowredblue(x)))
 }
 
 #' undocumented internal function
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 f.blackyellow <- function(x) {
   return(rev(f.yellowblack(x)))
 }
 
 #' undocumented internal function
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 f.blackredyellow <- function(x) {
   return(rev(f.yellowredblack(x)))
 }
 
 #' undocumented internal function
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 f.blackwhitered <- function(x) {
   return(rev(f.redwhiteblack(x)))
 }
@@ -761,7 +763,7 @@ f.blackwhitered <- function(x) {
 #######################################################################################################################################
 #######################################################################################################################################
 #' Draw an image() with the values printed as text
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 #'@export
 f.image.with.text <- function(x, y, z, xLabel, yLabel, mainLabel, useLog = FALSE, ...) {
   xChars <- as.character(x)
@@ -789,7 +791,7 @@ f.image.with.text <- function(x, y, z, xLabel, yLabel, mainLabel, useLog = FALSE
 #'@param useFreq plot frequencies instead of densities
 #'@param doNotShowSummary omit printing mean/median/sd
 #'@param useLog log2-transform the data
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 #'@export
 f.histogram <- function(x, y = c(), xName = "", useFreq = FALSE, doNotShowSummary = FALSE, useLog = FALSE, ...) 
 {
@@ -843,7 +845,7 @@ f.histogram <- function(x, y = c(), xName = "", useFreq = FALSE, doNotShowSummar
 #'@param xName x-axis label
 #'@param yName y-axis label
 #'@param ... other arguments passed on to plot()
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 #'@export
 f.scatter <- function(x, y, xName = "", yName = "", cexFactor = 1, ...)
 {
@@ -879,7 +881,7 @@ f.scatter <- function(x, y, xName = "", yName = "", cexFactor = 1, ...)
 #######################################################################################################################################
 #' Replace Inf/-Inf with the next highes/lowest value.
 #'@param x a numeric vector
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 #'@export
 f.replace.Inf.by.next <- function(x) {
   if (sum(abs(x) == Inf, na.rm = TRUE) == 0) {return(x)}
@@ -903,7 +905,7 @@ f.replace.Inf.by.next <- function(x) {
 #'@param yName y-axis label
 #'@param tryToScale EXPERIMENTAL - replace outliers (10 times bigger than the median) with 10*median
 #'@param ... other arguments passed on to plot()
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 #'@export
 f.density.scatter <- function(x, y, xName = "", yName = "", main = "", tryToScale = FALSE, ...) {
   x <- f.replace.Inf.by.next(x)
@@ -944,7 +946,7 @@ f.density.scatter <- function(x, y, xName = "", yName = "", main = "", tryToScal
 #'@param rDir folder for the figure
 #'@param rt threshold for the data (it will test >= threshold, except if the threshold is zero, then > 0)
 #'@param prefix prefix for the name of the plot
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 #'@export
 f.allinone <- function(data, rDir, rt = 0, prefix = "", scaleToSample = FALSE) 
 {
@@ -1024,7 +1026,7 @@ f.allinone <- function(data, rDir, rt = 0, prefix = "", scaleToSample = FALSE)
 #'@param highVarPercentile if useOnlyHighVar is given, only the rows with variation greater than the highVarPercentile are used
 #' (0.9 means that only the 10\% with the highest variation are used).
 #'@param corUse see "use" in \code{\link{cor}}
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}
 #'@export
 f.generic.correlation.matrix <- function(data, rDir, outfile, corMethod = "pearson", useOnlyHighVar = FALSE, tryAutoColor = TRUE, highVarPercentile = 0.9, corUse = "everything", ...) {
   require("gplots")
@@ -1070,7 +1072,7 @@ f.generic.correlation.matrix <- function(data, rDir, outfile, corMethod = "pears
 #'Operations follow the order in the vector. Previous results can therefore be recycled. Setdiff is order-sensitive (in first but not the others).
 #'@return a list with all results.
 #'@note if you have a nested list, use \code{unlist(x, recursive = FALSE)}. The top-level names are then separated by a dot from the low level nodes.
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 #'@export
 f.combine.a.list.of.sets <- function(data, combination) {
   opeIn <- c(which(combination %in% c("union", "intersect", "setdiff")), length(combination)+1)
@@ -1116,7 +1118,7 @@ f.combine.a.list.of.sets <- function(data, combination) {
 #'to TRUE, the terms which do NOT match the search criteria are extracted (e.g. if one would like
 #'to test a certain set A versus all non-A, one can do that with:
 #'\code{f.formulate.simple.contrast(setA, setA, design, invertMinus = TRUE)})
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 #'@export
 f.formulate.simple.contrast <- function(plusTermsRE, minusTermsRE, design, invertPlus = FALSE, invertMinus = FALSE, fixed = FALSE) {
   plusTerms <- sapply(plusTermsRE, function(x) grep(x, colnames(design), fixed = fixed, value = TRUE, invert = invertPlus))
@@ -1154,7 +1156,7 @@ f.formulate.simple.contrast <- function(plusTermsRE, minusTermsRE, design, inver
 #'@param logCPM return normalized logCPMs instead.
 #'@return normalized counts (logged, optionally logCPM).
 #'@note requires edgeR to be installed.
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 #'@export
 f.normalize.counts.edgeR <- function(data, logCPM = FALSE) {
   require("edgeR")
@@ -1177,7 +1179,7 @@ f.normalize.counts.edgeR <- function(data, logCPM = FALSE) {
 #'@param method c("none", "TMM", "quantile").
 #'@return normalized values
 #'@note requires limma and edgeR (TMM) to be installed.
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 #'@export
 f.normalize.counts.limma <- function(data, design, method = "none") {
   require("limma")
@@ -1205,7 +1207,7 @@ f.normalize.counts.limma <- function(data, design, method = "none") {
 #'to get blind dispersion estimates and normalization, one can supply ~1 as formula (TODO check this).
 #'@return normalized values
 #'@note requires DESeq2 to be installed.
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 #'@export
 f.normalize.counts.DESeq <- function(data, sampleTab, formulaString, tryRescue = FALSE) {
   require("DESeq2")
@@ -1238,7 +1240,7 @@ f.normalize.counts.DESeq <- function(data, sampleTab, formulaString, tryRescue =
 #'@return a list with normalized counts. 
 #'Names are edgeR, DESeq_default, limma_none, limma_TMM, and limma_quantile.
 #'@note requires edgeR, DESeq2, and limma to be installed.
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 #'@seealso \code{\link{f.normalize.counts.edgeR}}, \code{\link{f.normalize.counts.DESeq}}, and \code{\link{f.normalize.counts.limma}}.
 #'@export
 f.all.normalizations <- function(data, sampleTab, formulaString,  design) {
@@ -1262,7 +1264,7 @@ f.all.normalizations <- function(data, sampleTab, formulaString,  design) {
 #'@param filePrefix some prefix for the files.
 #'@param skipScatters set to true if you want to skip the scatterplots.
 #'@return NULL
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 #'@seealso \code{\link{f.equalize.counts.edgeR}}...
 #'@export
 f.do.some.overview <- function(data, rDir, filePrefix, skipScatters = FALSE) {
@@ -1281,7 +1283,7 @@ f.do.some.overview <- function(data, rDir, filePrefix, skipScatters = FALSE) {
 #'@param minTimes see above.
 #'@param lowerVarQuantileToRemove remove entries with var within this quantile.
 #'@return filtered data.
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 #'@export
 f.strip.data <- function(data, minVal = 5, minTimes = 1, lowerVarQuantileToRemove = 0, colsToStrip = colnames(data)) {
   before <- nrow(data)
@@ -1310,7 +1312,7 @@ f.strip.data <- function(data, minVal = 5, minTimes = 1, lowerVarQuantileToRemov
 #'@field table data.frame with four columns: generic, logFC, pVal, and adjP.
 #'@field isPairwise TRUE for pairwise, FALSE for contrast.
 #'@field pairOrCont either the pair which was been compared, or the name of the contrast.
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 #'@export c.DEGtab
 #'@exportClass c.DEGtab
 c.DEGtab <- setRefClass(
@@ -1451,7 +1453,7 @@ c.DEGtab <- setRefClass(
 #'@references 
 #'Robinson, M.D. and Oshlack, A. (2010)
 #'A scaling normalization method for differential expression analysis of RNA-Seq data. \emph{Genome Biology} \bold{11}, R25.
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 #'@export
 f.two.groups.edgeR <- function(data, groups, pair, method = "trended", batch = c()) {
   require("edgeR")
@@ -1511,7 +1513,7 @@ f.two.groups.edgeR <- function(data, groups, pair, method = "trended", batch = c
 #'@references 
 #'Love, M.I. and Huber, W. and Anders, S. (2014)
 #'Moderated estimation of fold change and dispersion for RNA-seq data with DESeq2. \emph{Genome Biology} \bold{15}, 550.
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 #'@export
 f.two.groups.DESeq <- function(data, groups, pair, method = "default", batch = c()) {
   require("DESeq2")
@@ -1560,7 +1562,7 @@ f.two.groups.DESeq <- function(data, groups, pair, method = "default", batch = c
 #'@references 
 #'Ritchie, M.E. and Phipson, B. and Wu, D. and Hu, Y. and Law, C.W. and Shi, W. and Smyth, G. (2015)
 #'limma powers differential expression analyses for RNA-sequencing and microarray studies. \emph{Nucleic Acids Research} \bold{43}, e47.
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 #'@export
 f.two.groups.limma <- function(data, groups, pair, method = "TMM", batch = c()) {
   require("limma")
@@ -1620,7 +1622,7 @@ f.two.groups.limma <- function(data, groups, pair, method = "TMM", batch = c()) 
 #'@param batch optionally a vector of same length as groups to specify a batch factor.
 #'@return a list with all the result from DEFUN. The names equal to GroupA_vs_GroupB (for the formulas, this means groupB-groupA). 
 #'@note requires edgeR, DESeq2, and limma to be installed.
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 #'@seealso \code{\link{f.two.groups.edgeR}}, \code{\link{f.two.groups.DESeq}}, and \code{\link{f.two.groups.limma}}.
 #'@export
 f.all.pairwise.comparisons <- function(data, samples, groups, DEFUN, method = "none", batch = c()) {
@@ -1659,7 +1661,7 @@ f.all.pairwise.comparisons <- function(data, samples, groups, DEFUN, method = "n
 #'Names are edgeR_common, edgeR_tagwise, edgeR_trended, DESeq_default, limma_none, limma_TMM, and limma_quantile.
 #'@note requires edgeR, DESeq2, and limma to be installed.
 #'This function will give a list with the method first and then all the pairs. For the other way around, check \code{\link{f.multiple.two.group.comparisons.pairwise}}
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 #'@seealso \code{\link{f.two.groups.edgeR}}, \code{\link{f.two.groups.DESeq}}, and \code{\link{f.two.groups.limma}}.
 #'@export
 f.multiple.all.pairwise.comparisons <- function(data, samples, groups, batch = c()) {
@@ -1692,7 +1694,7 @@ f.multiple.all.pairwise.comparisons <- function(data, samples, groups, batch = c
 #'@return a list with results from the individual test methods. 
 #'Names are edgeR_common, edgeR_tagwise, edgeR_trended, DESeq_default, limma_none, limma_TMM, and limma_quantile.
 #'@note requires edgeR, DESeq2, and limma to be installed.
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 #'@seealso \code{\link{f.two.groups.edgeR}}, \code{\link{f.two.groups.DESeq}}, and \code{\link{f.two.groups.limma}}.
 #'@export
 f.multiple.two.group.comparisons <- function(data, groups, pair, batch = c()) {
@@ -1725,7 +1727,7 @@ f.multiple.two.group.comparisons <- function(data, groups, pair, batch = c()) {
 #'@return a list with the results of \code{\link{f.multiple.two.group.comparisons}}. The names equal to GroupA_vs_GroupB (for the formulas, this means groupB-groupA). 
 #'@note requires edgeR, DESeq2, and limma to be installed. 
 #'This function will give a list with the pair first and then all the methods. For the other way around, check \code{\link{f.multiple.all.pairwise.comparisons}}
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 #'@seealso \code{\link{f.two.groups.edgeR}}, \code{\link{f.two.groups.DESeq}}, and \code{\link{f.two.groups.limma}}.
 #'@export
 f.multiple.two.group.comparisons.pairwise <- function(data, samples, groups, batch = c()) {
@@ -1759,7 +1761,7 @@ f.multiple.two.group.comparisons.pairwise <- function(data, samples, groups, bat
 #'@param sampleTab a table with samples as rownames, variables as colnames, and their levels as entires.
 #'@param colsToUse the columns which should be combined.
 #'@return the sample table with an additional column
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 #'@export
 f.combine.factors.of.sample.table <- function(sampleTab, colsToUse = colnames(sampleTab)) {
   newFac <- paste(paste(colsToUse, collapse = 'x'), '__', sep = '')
@@ -1778,7 +1780,7 @@ f.combine.factors.of.sample.table <- function(sampleTab, colsToUse = colnames(sa
 #'@return a vector with the resultnames given the sampleTable and the formula.
 #'@note all variables will be converted to factors!
 #'useful for \code{\link{f.multiple.groups.DESeq}}, \code{\link{f.multiple.groups.edgeR}}, and \code{\link{f.multiple.groups.limma}}
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 #'@export
 f.get.result.names.and.model.matrix <- function(sampleTab, formulaString) {
   require("DESeq2")
@@ -1813,7 +1815,7 @@ f.get.result.names.and.model.matrix <- function(sampleTab, formulaString) {
 #'@param design normally a design matrix - only here for compatibility.
 #'@param method also for compatibility.
 #'@return list with \code{\link{c.DEGtab}} objects, named after the name of the contrast.
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 #'@export
 f.multi.level.DESeq <- function(data, sampleTab, formulaString, contrastsToTest, design = "none", method = "default", tryRescue = FALSE) {
   require("DESeq2")
@@ -1853,7 +1855,7 @@ f.multi.level.DESeq <- function(data, sampleTab, formulaString, contrastsToTest,
 #'@param design a design matrix made with model.matrix(formula(formulaString), data = sampleTab, contrasts.arg = NULL).
 #'@param method the method used for dispersion estimates (common, trended, tagwise).
 #'@return list with \code{\link{c.DEGtab}} objects, named after the name of the contrast.
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 #'@export
 f.multi.level.edgeR <- function(data, sampleTab, formulaString, contrastsToTest, design, method = "trended") {
   require("edgeR")
@@ -1902,7 +1904,7 @@ f.multi.level.edgeR <- function(data, sampleTab, formulaString, contrastsToTest,
 #'@param design a design matrix made with model.matrix(formula(formulaString), data = sampleTab, contrasts.arg = NULL).
 #'@param method the method used for normalization (none, TMM, quantile).
 #'@return list with \code{\link{c.DEGtab}} objects, named after the name of the contrast.
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 #'@export
 f.multi.level.limma <- function(data, sampleTab, formulaString, contrastsToTest, design, method = "TMM") {
   require("limma")
@@ -1958,7 +1960,7 @@ f.multi.level.limma <- function(data, sampleTab, formulaString, contrastsToTest,
 #'Moderated estimation of fold change and dispersion for RNA-seq data with DESeq2. \emph{Genome Biology} \bold{15}, 550.
 #'Ritchie, M.E. and Phipson, B. and Wu, D. and Hu, Y. and Law, C.W. and Shi, W. and Smyth, G. (2015)
 #'limma powers differential expression analyses for RNA-sequencing and microarray studies. \emph{Nucleic Acids Research} \bold{43}, e47.
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 #'@seealso \code{\link{f.multi.level.edgeR}}, \code{\link{f.multi.level.DESeq}}, and \code{\link{f.multi.level.limma}}.
 #'@export
 f.multiple.multi.level.comparisons <- function(data, sampleTab, formulaString, contrastsToTest, design) {
@@ -1986,7 +1988,7 @@ f.multiple.multi.level.comparisons <- function(data, sampleTab, formulaString, c
 #'@param batchCol optionally the name of the column holding the info on the batch.
 #'@return a list with the formulaString, the design, and the defaultContrasts.
 #'@seealso \code{\link{f.two.by.two.edgeR}}, \code{\link{f.two.by.two.DESeq}}, and \code{\link{f.two.by.two.limma}}.
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 #'@export
 f.prepare.two.by.two.analysis <- function(sampleTab, factorA, factorB, batchCol = "") {
   # check args
@@ -2037,7 +2039,7 @@ f.prepare.two.by.two.analysis <- function(sampleTab, factorA, factorB, batchCol 
 #'@return list with \code{\link{c.DEGtab}} objects, named after the name of the contrast.
 #'@note this analysis is based on standard design matrices. The sampleTab should be prepared in a way that the levels of the factors are clear.
 #'@seealso \code{\link{f.prepare.two.by.two.analysis}}
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 #'@export
 f.two.by.two.DESeq <- function(data, sampleTab, factorA, factorB, method = "default", batchCol = "") {
   require("DESeq2")
@@ -2080,7 +2082,7 @@ f.two.by.two.DESeq <- function(data, sampleTab, factorA, factorB, method = "defa
 #'res <- f.two.by.two.edgeR(data, sampleTab, "COL", "INH", "trended")
 #'resBatch <- f.two.by.two.edgeR(data, sampleTab, "COL", "INH", "trended", "BA")
 #'}
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 #'@export
 f.two.by.two.edgeR <- function(data, sampleTab, factorA, factorB, method = "trended", batchCol = "") {
   require("edgeR")
@@ -2121,7 +2123,7 @@ f.two.by.two.edgeR <- function(data, sampleTab, factorA, factorB, method = "tren
 #'@return list with \code{\link{c.DEGtab}} objects, named after the name of the contrast.
 #'@note this analysis is based on standard design matrices. The sampleTab should be prepared in a way that the levels of the factors are clear.
 #'@seealso \code{\link{f.prepare.two.by.two.analysis}}
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 #'@export
 f.two.by.two.limma <- function(data, sampleTab, factorA, factorB, method = "TMM", batchCol = "") {
   require("limma")
@@ -2175,7 +2177,7 @@ f.two.by.two.limma <- function(data, sampleTab, factorA, factorB, method = "TMM"
 #'Moderated estimation of fold change and dispersion for RNA-seq data with DESeq2. \emph{Genome Biology} \bold{15}, 550.
 #'Ritchie, M.E. and Phipson, B. and Wu, D. and Hu, Y. and Law, C.W. and Shi, W. and Smyth, G. (2015)
 #'limma powers differential expression analyses for RNA-sequencing and microarray studies. \emph{Nucleic Acids Research} \bold{43}, e47.
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 #'@seealso \code{\link{f.multi.level.edgeR}}, \code{\link{f.multi.level.DESeq}}, and \code{\link{f.multi.level.limma}}.
 #'@export
 f.multiple.two.by.two.comparisons <- function(data, sampleTab, factorA, factorB, batchCol = "") {
@@ -2203,7 +2205,7 @@ f.multiple.two.by.two.comparisons <- function(data, sampleTab, factorA, factorB,
 #'@param addGeneCol set to true if the rownames in data were of type ensembl_transcript_id.
 #'@param onlySigRawP set to true if only entires with a raw pValue < 0.05 should be saved.
 #'@note requires XLConnect to be installed.
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 #'@export
 f.write.DEGtabs.to.workbook <- function(DEGtabList, rDir, filePrefix, mart = NA, addGeneCol = FALSE, onlySigRawP = FALSE) {
   require("XLConnect")
@@ -2284,7 +2286,7 @@ f.write.DEGtabs.to.workbook <- function(DEGtabList, rDir, filePrefix, mart = NA,
 #'@param mart the mart to use (e.g. useMart("ensembl", dataset = "mmusculus_gene_ensembl"))
 #'@param addGeneCol set to true if the rownames in data were of type ensembl_transcript_id.
 #'@note requires XLConnect to be installed.
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 #'@export
 f.write.set.collection.to.workbook <- function(data, setCollection, rDir, filePrefix, mart = NA, addGeneCol = FALSE) {
   require("XLConnect")
@@ -2349,7 +2351,7 @@ f.write.set.collection.to.workbook <- function(data, setCollection, rDir, filePr
 #'@param mart the mart to use (e.g. useMart("ensembl", dataset = "mmusculus_gene_ensembl"))
 #'@param addGeneCol set to true if the rownames in data were of type ensembl_transcript_id.
 #'@note requires XLConnect to be installed.
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 #'@export
 f.write.multicolumn.sets.to.workbook <- function(data, setCollection, rDir, filePrefix, mart = NA, addGeneCol = FALSE) {
   require("XLConnect")
@@ -2413,7 +2415,7 @@ f.write.multicolumn.sets.to.workbook <- function(data, setCollection, rDir, file
 #'@param mart the mart to use (e.g. useMart("ensembl", dataset = "mmusculus_gene_ensembl"))
 #'@param addGeneCol set to true if the rownames in data were of type ensembl_transcript_id.
 #'@note requires XLConnect to be installed.
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 #'@export
 f.combine.DEGtabs.and.write.to.workbook <- function(data, DEGtabList, rDir, filePrefix, pVal = 1, adjP = 0.1, logFC = 0, mart = NA, addGeneCol = FALSE) {
   require("XLConnect")
@@ -2471,7 +2473,7 @@ f.combine.DEGtabs.and.write.to.workbook <- function(data, DEGtabList, rDir, file
 #######################################################################################################################################
 #' Get chromosomes which should be kept.
 #'@return a character vector with valid chromosomes
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 f.internal.get.relevant.chromosomes <- function(chromList) {
   out <- c("MT", "M", "C", "X", "Y", as.character(1:100))
   out <- c(out, paste("Chr", out, sep = ''), paste("chr", out, sep =''))
@@ -2490,7 +2492,7 @@ f.internal.get.relevant.chromosomes <- function(chromList) {
 #'@param us upstream bp
 #'@param ds downstream bp
 #'@return the promoter regions
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 #'@export
 f.get.promoter.regions <- function(mart, rDir, us = 2e3, ds = 5e2) {
   require("biomaRt")
@@ -2532,7 +2534,7 @@ f.get.promoter.regions <- function(mart, rDir, us = 2e3, ds = 5e2) {
 #'@param us upstream bp
 #'@param ds downstream bp
 #'@return the TES regions
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 #'@export
 f.get.TES.regions <- function(mart, rDir, us = 2e3, ds = 2e3) {
   require("biomaRt")
@@ -2572,7 +2574,7 @@ f.get.TES.regions <- function(mart, rDir, us = 2e3, ds = 2e3) {
 #'@param mart the mart to use (e.g. useMart("ensembl", dataset = "mmusculus_gene_ensembl"))
 #'@param rDir directory where the file is stored
 #'@return the gene regions
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 #'@export
 f.get.gene.regions <- function(mart, rDir) {
   require("biomaRt")
@@ -2609,7 +2611,7 @@ f.get.gene.regions <- function(mart, rDir) {
 #'@param mart the mart to use (e.g. useMart("ensembl", dataset = "mmusculus_gene_ensembl"))
 #'@param rDir directory where the file is stored
 #'@return the transcript regions
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 #'@export
 f.get.transcript.regions <- function(mart, rDir) {
   require("biomaRt")
@@ -2649,7 +2651,7 @@ f.get.transcript.regions <- function(mart, rDir) {
 #'@param mart the mart to use (e.g. useMart("ensembl", dataset = "mmusculus_gene_ensembl"))
 #'@param rDir directory where the file is stored
 #'@return the transcript regions
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 #'@export
 f.get.exon.regions <- function(mart, rDir) {
   require("biomaRt")
@@ -2716,7 +2718,7 @@ f.get.exon.regions <- function(mart, rDir) {
 #'@references 
 #'Schmid, M.W. and Grossniklaus, U. (2015)
 #'Rcount: simple and flexible RNA-Seq read counting.\emph{Bioinformatics} \bold{31}: 436-437.
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 #'@export
 f.write.Rcount.project.file <- function(sampleName, annotationXML, readsInfile, readsOutfile, countTableFile, OUTprojectXML, 
                                         useMulti = "true", useStrand = "false", minReads = 5, maxDist = 250, minBelowMaxDist = 1) {
@@ -2775,7 +2777,7 @@ f.write.Rcount.project.file <- function(sampleName, annotationXML, readsInfile, 
 #'These columns will need to be filled up by the user and are then used during the analysis of differential expression.
 #'@return TRUE if there is no error.
 #'@note This is a top level wrapper function - see github.com/MWSchmid/RNAseq_protocol for details.
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 #'@export
 f.wf.download.from.SRA <- function(readsDir, metaDB, mySamplesFile, autoAnnotation, colsToAdd) {
   require("SRAdb")
@@ -2963,7 +2965,7 @@ f.wf.download.from.SRA <- function(readsDir, metaDB, mySamplesFile, autoAnnotati
 #'index, readFile1, readFile2, output_file, type, phredOffset 
 #'@return TRUE if there is no error.
 #'@note This is a top level wrapper function - see github.com/MWSchmid/RNAseq_protocol for details.
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 #'@export
 f.wf.align.reads.with.Rsubread <- function(myAnnotation, readsDir, bamDir, nucIndex, colIndex = "", readType = c("rna", "dna"), ...) {
   require("Rsubread")
@@ -3062,7 +3064,7 @@ f.wf.align.reads.with.Rsubread <- function(myAnnotation, readsDir, bamDir, nucIn
 #'files, annot.ext, isGTFAnnotationFile, strandSpecific, minOverlap
 #'@return TRUE if there is no error.
 #'@note This is a top level wrapper function - see github.com/MWSchmid/RNAseq_protocol for details.
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 #'@export
 f.wf.count.reads.with.featureCounts <- function(myAnnotation, bamDir, gAnnFile, countTabsFC, countTabFC,
                                                 minOverlapFrac = .7, ...) {
@@ -3169,7 +3171,7 @@ f.wf.count.reads.with.featureCounts <- function(myAnnotation, bamDir, gAnnFile, 
 #'@param maxMem the maximal amount of RAM to use (in Mb).
 #'@return TRUE if there is no error.
 #'@note This is a top level wrapper function - see github.com/MWSchmid/RNAseq_protocol for details.
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 #'@export
 f.wf.sort.bam.files <- function(myAnnotation, bamDirIn, bamDirOut = bamDirIn, maxMem = 8192) {
   require("Rsamtools")
@@ -3210,7 +3212,7 @@ f.wf.sort.bam.files <- function(myAnnotation, bamDirIn, bamDirOut = bamDirIn, ma
 #'@param bamDirOut path to a folder where the bam files with the weighted reads will be stored.
 #'@return TRUE if there is no error.
 #'@note This is a top level wrapper function - see github.com/MWSchmid/RNAseq_protocol for details.
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 #'@export
 f.wf.weight.multireads.with.Rcount <- function(myAnnotation, RcountMultir, bamDirIn, bamDirOut = bamDirIn) {
   # Import the sample annotation.
@@ -3250,7 +3252,7 @@ f.wf.weight.multireads.with.Rcount <- function(myAnnotation, RcountMultir, bamDi
 #'@param bamDirOut path to a folder where the bam files with the mapping information will be stored.
 #'@return TRUE if there is no error.
 #'@note This is a top level wrapper function - see github.com/MWSchmid/RNAseq_protocol for details.
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 #'@export
 f.wf.create.Rcount.projects <- function(myAnnotation, RcountPrePro, RcountProDir, RcountAnnota, countTabsRC, bamDirIn, bamDirOut = bamDirIn) {
   # Import the sample annotation.
@@ -3295,7 +3297,7 @@ f.wf.create.Rcount.projects <- function(myAnnotation, RcountPrePro, RcountProDir
 #'@param countTabRC path to a *.csv table which will contain the expression values for all samples.
 #'@return TRUE if there is no error.
 #'@note This is a top level wrapper function - see github.com/MWSchmid/RNAseq_protocol for details.
-#'@author Marc W. Schmid \email{marcschmid@@gmx.ch}.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 #'@export
 f.wf.count.reads.with.Rcount <- function(myAnnotation, RcountDistri, RcountProDir, countTabsRC, countTabRC) {
   # Import the sample annotation.
