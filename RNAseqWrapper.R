@@ -12,12 +12,12 @@
 #  
 # See <http://www.gnu.org/licenses/> for a a copy of the GNU General Public License.
 
-#' a global variable for plotting control.
+#'@title a global variable for plotting control.
 #'@note using quartz on MacOSX disables the lzw compression of tiffs - this variable changes the default to "Xlib" (only on MacOS)
 #'@author Marc W. Schmid \email{contact@@mwschmid.ch}
 GLOBAL_VARIABLE_TIFF_LIB <- getOption("bitmapType"); if (Sys.info()['sysname'] == "Darwin") { GLOBAL_VARIABLE_TIFF_LIB <- "Xlib" }
 
-#' a global variable for plotting control.
+#'@title a global variable for plotting control.
 #'@note set to true if you wish some plots to be saved as svg instead of tiff/png.
 #'@author Marc W. Schmid \email{contact@@mwschmid.ch}
 GLOBAL_VARIABLE_USE_SVG <- TRUE; if (Sys.info()['sysname'] == "Darwin") { GLOBAL_VARIABLE_USE_SVG <- FALSE }
@@ -25,7 +25,7 @@ GLOBAL_VARIABLE_USE_SVG <- TRUE; if (Sys.info()['sysname'] == "Darwin") { GLOBAL
 #######################################################################################################################################
 #######################################################################################################################################
 #######################################################################################################################################
-#' read tables with identical columns from a directory
+#'@title read tables with identical columns from a directory
 #'@param aDir the path to the files in "aFiles"
 #'@param aExp a regular expression required within the file name
 #'@param aExt a file extension required for the file to be read
@@ -66,7 +66,7 @@ f.read.files.from.directory <- function(aDir, aExp, aExt, aExc, aHead, aSep, use
 #######################################################################################################################################
 #######################################################################################################################################
 #######################################################################################################################################
-#' read tables with identical columns from a given list of files
+#'@title read tables with identical columns from a given list of files
 #'@param aDir the path to the files in "aFiles"
 #'@param aFiles a vector with file names
 #'@param aHead a vector with the column names
@@ -102,7 +102,7 @@ f.read.files.from.given.list <- function(aDir, aFiles, aHead, aNames = c(), aSep
 #######################################################################################################################################
 #######################################################################################################################################
 #######################################################################################################################################
-#' read simple "list-files" (one column) from a directory
+#'@title read simple "list-files" (one column) from a directory
 #'@param aDir a directory with the files
 #'@param aExp a regular expression required within the file name
 #'@param aExt a file extension required for the file to be read
@@ -126,7 +126,7 @@ f.read.lists.from.directory <- function(aDir, aExp, aExt, aExc) {
 #######################################################################################################################################
 #######################################################################################################################################
 #######################################################################################################################################
-#' read Rcount tables
+#'@title read Rcount tables
 #'@param aDir a directory with the files
 #'@param aExp a regular expression required within the file name
 #'@param aExc a regular expression which should be omitted in the file names
@@ -143,7 +143,7 @@ f.read.Rcount <- function(aDir, aExp = "", aExc = "", toReturn = "TH") {
 #######################################################################################################################################
 #######################################################################################################################################
 #######################################################################################################################################
-#' read featureCounts tables
+#'@title read featureCounts tables
 #'@param aDir a directory with the files
 #'@param aExp a regular expression required within the file name
 #'@param aExc a regular expression which should be omitted in the file names
@@ -159,7 +159,7 @@ f.read.featureCounts <- function(aDir, aExp = "", aExc = "") {
 #######################################################################################################################################
 #######################################################################################################################################
 #######################################################################################################################################
-#' Check whether a FASTQ file has a PHRED offset of 33 or 64
+#'@title Check whether a FASTQ file has a PHRED offset of 33 or 64
 #'@param fastq a fastq file (may be gzipped)
 #'@return the PHRED offset: either 33 or 64
 #'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
@@ -201,7 +201,7 @@ f.check.phred.offset <- function(fastq) {
 #######################################################################################################################################
 #######################################################################################################################################
 #######################################################################################################################################
-#' summarize a table according to groups and names
+#'@title summarize a table according to groups and names
 #'@param x <dataframe, matrix>: numeric, colnames as in byTab
 #'@param byTab <dataframe>: at least two columns: sample and group
 #'@param summaryFunction: a function like mean, median, sum
@@ -224,7 +224,7 @@ f.summarize.columns <- function(x, byTab, summaryFunction) {
 #######################################################################################################################################
 #######################################################################################################################################
 #######################################################################################################################################
-#' simple comparison function which makes either >= x or > 0
+#'@title simple comparison function which makes either >= x or > 0
 #'@param x values
 #'@param rt threshold
 #'@return logical vector
@@ -239,7 +239,7 @@ f.comp <- function(x,rt){
 #######################################################################################################################################
 #######################################################################################################################################
 #######################################################################################################################################
-#' trim a table according to a column
+#'@title trim a table according to a column
 #'@param x table
 #'@param cn the column to trim
 #'@param ext fraction of extreme values to remove (two-sided! 0.05 removes in total 10\% of all values)
@@ -266,7 +266,7 @@ f.trim <- function(x, cn, ext = 0.05, viaRanks = FALSE) {
 #######################################################################################################################################
 #######################################################################################################################################
 #######################################################################################################################################
-#' merge two matrices with different columns (rownames don't need to match completely)
+#'@title merge two matrices with different columns (rownames don't need to match completely)
 #'@param x a matrix
 #'@param y another matrix
 #'@param rt a threshold - remove rows which are all below it (in case of 0, it tests for >, not >=)
@@ -291,7 +291,7 @@ f.merge.two.matrices <- function(x,y,rt){
 #######################################################################################################################################
 #######################################################################################################################################
 #######################################################################################################################################
-#' take the logarithm of the absolute value and append the original sign
+#'@title take the logarithm of the absolute value and append the original sign
 #'@param x a vector
 #'@param logFun a logarithm funtion
 #'@return a vector with the log values
@@ -310,7 +310,7 @@ f.log.twosided <- function(x, logFun) {
 #######################################################################################################################################
 #######################################################################################################################################
 #######################################################################################################################################
-#' alternative transformation for count data
+#'@title alternative transformation for count data
 #'@param x a vector with cound data
 #'@return a vector with the transformed values
 #'@references 
@@ -335,7 +335,7 @@ f.stahel.trafo <- function(x) {
 #######################################################################################################################################
 #######################################################################################################################################
 #######################################################################################################################################
-#' calculate a GSEA-like cumulative sum
+#'@title calculate a GSEA-like cumulative sum
 #'@param sortedGenes a named (genes) vector (e.g. logFC) - SORTED!
 #'@param myGOIs genes of interest
 #'@return cumulative sum (like in the GSEA plot)
@@ -356,7 +356,7 @@ f.calculate.GSEA.sum <- function(sortedGenes, myGOIs) {
 #######################################################################################################################################
 #######################################################################################################################################
 #######################################################################################################################################
-#' calculate the maximal enrichment for a given gene set of interest
+#'@title calculate the maximal enrichment for a given gene set of interest
 #'@param sortedGenes a named (genes) vector (e.g. logFC) - SORTED!
 #'@param myGOIs genes of interest
 #'@return maximal enrichment value (used to compare to random sampling)
@@ -371,7 +371,7 @@ f.calculate.max.GSEA.enrichment <- function(sortedGenes, myGOIs) {
 #######################################################################################################################################
 #######################################################################################################################################
 #######################################################################################################################################
-#' Do a GSEA-like test
+#'@title Do a GSEA-like test
 #'@param namedValues a sorted vector (e.g. logFC) with names (genes) vector (e.g. logFC) - SORTED!
 #'@param GOIs a vector with the genes of interest
 #'@param rDir directory where the plot is saved
@@ -418,7 +418,7 @@ f.do.GSEA.like.test <- function(namedValues, GOIs, rDir, filePrefix = "", mainTi
 #######################################################################################################################################
 #######################################################################################################################################
 #######################################################################################################################################
-#' join a list of overlapping or adjacent genomic regions
+#'@title join a list of overlapping or adjacent genomic regions
 #'@param data a data frame with at least three columns: chrom, start, and end
 #'@param otherCols a character vector with column names which should be summarized as well using the summaryFunction
 #'@param summaryFunction see "otherCols"
@@ -457,7 +457,7 @@ f.join.overlapping.fragments <- function(data, otherCols, summaryFunction, gap =
 #######################################################################################################################################
 #######################################################################################################################################
 #######################################################################################################################################
-#' join a list of overlapping or adjacent genomic regions - only if an additional variable has the same sign in both
+#'@title join a list of overlapping or adjacent genomic regions - only if an additional variable has the same sign in both
 #'@param data a data frame with at least three columns: chrom, start, and end
 #'@param otherCols a character vector with column names which should be summarized as well using the summaryFunction
 #'@param summaryFunction see "otherCols"
@@ -498,7 +498,7 @@ f.join.overlapping.fragments.directional <- function(data, otherCols, summaryFun
 #######################################################################################################################################
 #######################################################################################################################################
 #######################################################################################################################################
-#' search nearest genomic regions given a set of genomic regions
+#'@title search nearest genomic regions given a set of genomic regions
 #'@param data a data frame with at least four columns: chrom, start, end, and strand (encoded as 1 and -1)
 #'@param otherRegions a data frame with the regions to search in, three columns: chrom, start, and end
 #'@return a data frame with the upstream and downstream distances
@@ -547,7 +547,7 @@ f.get.closest.region <- function(data, otherRegions) {
 #######################################################################################################################################
 #######################################################################################################################################
 #######################################################################################################################################
-#' convert a dataframe from wide format to long format
+#'@title convert a dataframe from wide format to long format
 #'@param tab a dataframe in wide format
 #'@param cols the columns which should be merged
 #'@param newName the name of the merged column
@@ -585,7 +585,7 @@ f.wide.to.long <- function(tab, cols, newName) {
 #######################################################################################################################################
 #######################################################################################################################################
 #######################################################################################################################################
-#' convert a dataframe from long format to wide format
+#'@title convert a dataframe from long format to wide format
 #'@param tab a dataframe in long format
 #'@param futureRows the column containing the rownames of the wide table
 #'@param futureCols the column containing the rownames of the wide table
@@ -608,7 +608,7 @@ f.long.to.wide <- function(tab, futureRows, futureCols, futureEntries) {
 #######################################################################################################################################
 #######################################################################################################################################
 #######################################################################################################################################
-#' undocumented internal function
+#'@title undocumented internal function
 #'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 f.genetodensity <- function(x,y) {
   require("MASS")
@@ -628,7 +628,7 @@ f.genetodensity <- function(x,y) {
 #######################################################################################################################################
 #######################################################################################################################################
 #######################################################################################################################################
-#' undocumented internal function
+#'@title undocumented internal function
 #'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 f.genetodensitycolor <- function(x,y) {
   require("MASS")
@@ -668,7 +668,7 @@ f.genetodensitycolor <- function(x,y) {
 #######################################################################################################################################
 #######################################################################################################################################
 #######################################################################################################################################
-#' undocumented internal function
+#'@title undocumented internal function
 #'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 f.yellowblueblack <- function(x) {
   #rg <- approx(c(0, 0.5, 1), c(1, 1/3, 0), n = x)$y
@@ -678,7 +678,7 @@ f.yellowblueblack <- function(x) {
   return(rgb(rg, rg, b))
 }
 
-#' undocumented internal function
+#'@title undocumented internal function
 #'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 f.yellowblackblue <- function(x) {
   #rg <- approx(c(0, 1, 0.5), c(1, 1/3, 0), n = x)$y
@@ -688,7 +688,7 @@ f.yellowblackblue <- function(x) {
   return(rgb(rg, rg, b))
 }
 
-#' undocumented internal function
+#'@title undocumented internal function
 #'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 f.yellowredblue <- function(x) {
   r <- approx(c(0, 0.5, 1), c(1, 1, 0), n = x)$y
@@ -697,7 +697,7 @@ f.yellowredblue <- function(x) {
   return(rgb(r, g, b))
 }
 
-#' undocumented internal function
+#'@title undocumented internal function
 #'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 f.yellowblack <- function(x) {
   rg <- approx(c(0, 1), c(1, 0), n = x)$y
@@ -705,7 +705,7 @@ f.yellowblack <- function(x) {
   return(rgb(rg, rg, b))
 }
 
-#' undocumented internal function
+#'@title undocumented internal function
 #'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 f.yellowredblack <- function(x) {
   r <- approx(c(0, 0.5, 1), c(1, 1, 0), n = x)$y
@@ -714,7 +714,7 @@ f.yellowredblack <- function(x) {
   return(rgb(r, g, b))
 }
 
-#' undocumented internal function
+#'@title undocumented internal function
 #'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 f.redwhiteblack <- function(x) {
   r <- approx(c(0, 0.5, 1), c(1, 1, 0), n = x)$y
@@ -723,37 +723,37 @@ f.redwhiteblack <- function(x) {
   return(rgb(r, g, b))
 }
 
-#' undocumented internal function
+#'@title undocumented internal function
 #'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 f.blackblueyellow <- function(x) {
   return(rev(f.yellowblueblack(x)))
 }
 
-#' undocumented internal function
+#'@title undocumented internal function
 #'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 f.blueblackyellow <- function(x) {
   return(rev(f.yellowblackblue(x)))
 }
 
-#' undocumented internal function
+#'@title undocumented internal function
 #'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 f.blueredyellow <- function(x) {
   return(rev(f.yellowredblue(x)))
 }
 
-#' undocumented internal function
+#'@title undocumented internal function
 #'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 f.blackyellow <- function(x) {
   return(rev(f.yellowblack(x)))
 }
 
-#' undocumented internal function
+#'@title undocumented internal function
 #'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 f.blackredyellow <- function(x) {
   return(rev(f.yellowredblack(x)))
 }
 
-#' undocumented internal function
+#'@title undocumented internal function
 #'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 f.blackwhitered <- function(x) {
   return(rev(f.redwhiteblack(x)))
@@ -762,7 +762,7 @@ f.blackwhitered <- function(x) {
 #######################################################################################################################################
 #######################################################################################################################################
 #######################################################################################################################################
-#' Draw an image() with the values printed as text
+#'@title Draw an image() with the values printed as text
 #'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 #'@export
 f.image.with.text <- function(x, y, z, xLabel, yLabel, mainLabel, useLog = FALSE, ...) {
@@ -785,7 +785,7 @@ f.image.with.text <- function(x, y, z, xLabel, yLabel, mainLabel, useLog = FALSE
 #######################################################################################################################################
 #######################################################################################################################################
 #######################################################################################################################################
-#' Draw a histogram (frequency or density)
+#'@title Draw a histogram (frequency or density)
 #'@param x values
 #'@param xName x-axis label
 #'@param useFreq plot frequencies instead of densities
@@ -839,7 +839,7 @@ f.histogram <- function(x, y = c(), xName = "", useFreq = FALSE, doNotShowSummar
 #######################################################################################################################################
 #######################################################################################################################################
 #######################################################################################################################################
-#' Draw a scatterplot
+#'@title Draw a scatterplot
 #'@param x x-values
 #'@param y y-values
 #'@param xName x-axis label
@@ -879,7 +879,7 @@ f.scatter <- function(x, y, xName = "", yName = "", cexFactor = 1, ...)
 #######################################################################################################################################
 #######################################################################################################################################
 #######################################################################################################################################
-#' Replace Inf/-Inf with the next highes/lowest value.
+#'@title Replace Inf/-Inf with the next highes/lowest value.
 #'@param x a numeric vector
 #'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 #'@export
@@ -898,7 +898,7 @@ f.replace.Inf.by.next <- function(x) {
 #######################################################################################################################################
 #######################################################################################################################################
 #######################################################################################################################################
-#' Draw a scatterplot with heat colors indicating the point density
+#'@title Draw a scatterplot with heat colors indicating the point density
 #'@param x x-values
 #'@param y y-values
 #'@param xName x-axis label
@@ -941,7 +941,7 @@ f.density.scatter <- function(x, y, xName = "", yName = "", main = "", tryToScal
 #######################################################################################################################################
 #######################################################################################################################################
 #######################################################################################################################################
-#' Draw scatter plots, sorted scatter plots and histograms for all columns in a data frame
+#'@title Draw scatter plots, sorted scatter plots and histograms for all columns in a data frame
 #'@param data matrix or dataframe, not too many columns (there will be ncol(data)*ncol(data) plots in total)
 #'@param rDir folder for the figure
 #'@param rt threshold for the data (it will test >= threshold, except if the threshold is zero, then > 0)
@@ -1015,7 +1015,7 @@ f.allinone <- function(data, rDir, rt = 0, prefix = "", scaleToSample = FALSE)
 #######################################################################################################################################
 #######################################################################################################################################
 #######################################################################################################################################
-#' Draw a correlation matrix for multiple samples (correlation between multiple samples)
+#'@title Draw a correlation matrix for multiple samples (correlation between multiple samples)
 #'@param data matrix or dataframe with one sample per column.
 #'@param rDir a directory where the figure is stored.
 #'@param outfile name of the figure and the table (without file extension, _cor_mat.txt/.svg will be added).
@@ -1024,7 +1024,7 @@ f.allinone <- function(data, rDir, rt = 0, prefix = "", scaleToSample = FALSE)
 #'@param useOnlyHighVar use only the rows with high variability (specified by highVarPercentile).
 #'@param tryAutoColor try to get a nice color-gradient.
 #'@param highVarPercentile if useOnlyHighVar is given, only the rows with variation greater than the highVarPercentile are used
-#' (0.9 means that only the 10\% with the highest variation are used).
+#'(0.9 means that only the 10\% with the highest variation are used).
 #'@param corUse see "use" in \code{\link{cor}}
 #'@author Marc W. Schmid \email{contact@@mwschmid.ch}
 #'@export
@@ -1066,7 +1066,7 @@ f.generic.correlation.matrix <- function(data, rDir, outfile, corMethod = "pears
 #######################################################################################################################################
 #######################################################################################################################################
 #######################################################################################################################################
-#' combine a list of sets with a series of operations.
+#'@title combine a list of sets with a series of operations.
 #'@param data a list with sets (vectors), names accordingly.
 #'@param combination a vector with set operations (union, intersect, setdiff) followed by the result and the arguments for them.
 #'Operations follow the order in the vector. Previous results can therefore be recycled. Setdiff is order-sensitive (in first but not the others).
@@ -1104,7 +1104,7 @@ f.combine.a.list.of.sets <- function(data, combination) {
 #######################################################################################################################################
 #######################################################################################################################################
 #######################################################################################################################################
-#' Formulate a simple contrast using two sets of regular expressions.
+#'@title Formulate a simple contrast using two sets of regular expressions.
 #'@param plusTermsRE a vector of regular expressions or strings for the terms which will be summed up.
 #'@param minusTermsRE a vector of regular expressions or strings for the terms which will be substracted.
 #'@param design a design matrix obtained with \code{model.matrix}
@@ -1151,7 +1151,7 @@ f.formulate.simple.contrast <- function(plusTermsRE, minusTermsRE, design, inver
 #######################################################################################################################################
 #######################################################################################################################################
 #######################################################################################################################################
-#' Normalize count data for plotting with edgeR.
+#'@title Normalize count data for plotting with edgeR.
 #'@param data a data.frame or matrix object with counts.
 #'@param logCPM return normalized logCPMs instead.
 #'@return normalized counts (logged, optionally logCPM).
@@ -1173,7 +1173,7 @@ f.normalize.counts.edgeR <- function(data, logCPM = FALSE) {
 #######################################################################################################################################
 #######################################################################################################################################
 #######################################################################################################################################
-#' Normalize count data for plotting with limma (requires edgeR eventually)
+#'@title Normalize count data for plotting with limma (requires edgeR eventually)
 #'@param data a data.frame or matrix object with counts.
 #'@param design a design matrix made with model.matrix(formula(formulaString), data = sampleTab, contrasts.arg = NULL). See \code{\link{f.multi.level.limma}}.
 #'@param method c("none", "TMM", "quantile").
@@ -1198,7 +1198,7 @@ f.normalize.counts.limma <- function(data, design, method = "none") {
 #######################################################################################################################################
 #######################################################################################################################################
 #######################################################################################################################################
-#' Normalize count data for plotting with DESeq2
+#'@title Normalize count data for plotting with DESeq2
 #'@param data a data.frame or matrix object with counts.
 #'@param sampleTab a data.frame with grouping variables:
 #'rownames are samples, colnames are variables for the model, and entries are factor levels.
@@ -1230,7 +1230,7 @@ f.normalize.counts.DESeq <- function(data, sampleTab, formulaString, tryRescue =
 #######################################################################################################################################
 #######################################################################################################################################
 #######################################################################################################################################
-#' Get all possible normalization given a certain experimental layout
+#'@title Get all possible normalization given a certain experimental layout
 #'@param data a data.frame or matrix object with counts.
 #'@param sampleTab a data.frame with grouping variables:
 #'rownames are samples, colnames are variables for the model, and entries are factor levels.
@@ -1258,7 +1258,7 @@ f.all.normalizations <- function(data, sampleTab, formulaString,  design) {
 #######################################################################################################################################
 #######################################################################################################################################
 #######################################################################################################################################
-#' Make some overview plots of RNA-Seq data.
+#'@title Make some overview plots of RNA-Seq data.
 #'@param data a data.frame or matrix object with counts (if required, normalize and or log beforehand)
 #'@param rDir directory where things are stored.
 #'@param filePrefix some prefix for the files.
@@ -1277,7 +1277,7 @@ f.do.some.overview <- function(data, rDir, filePrefix, skipScatters = FALSE) {
 #######################################################################################################################################
 #######################################################################################################################################
 #######################################################################################################################################
-#' remove entries of a table with low values and variance.
+#'@title remove entries of a table with low values and variance.
 #'@param data a data.frame or matrix object with counts.
 #'@param minVal minimum value which should be seen at least minTimes per row.
 #'@param minTimes see above.
@@ -1442,7 +1442,7 @@ c.DEGtab <- setRefClass(
 #######################################################################################################################################
 #######################################################################################################################################
 #######################################################################################################################################
-#' Perform pairwise comparison with edgeR.
+#'@title Perform pairwise comparison with edgeR.
 #'@param data a data.frame or matrix object with counts.
 #'@param groups the group labels for the samples (sorted accoring to the column names).
 #'@param pair a vector with the two groups to be compared.
@@ -1502,7 +1502,7 @@ f.two.groups.edgeR <- function(data, groups, pair, method = "trended", batch = c
 #######################################################################################################################################
 #######################################################################################################################################
 #######################################################################################################################################
-#' Perform pairwise comparison with DESeq2.
+#'@title Perform pairwise comparison with DESeq2.
 #'@param data a data.frame or matrix object with counts.
 #'@param groups the group labels for the samples (sorted accoring to the column names).
 #'@param pair a vector with the two groups to be compared.
@@ -1551,7 +1551,7 @@ f.two.groups.DESeq <- function(data, groups, pair, method = "default", batch = c
 #######################################################################################################################################
 #######################################################################################################################################
 #######################################################################################################################################
-#' Perform pairwise comparison with limma.
+#'@title Perform pairwise comparison with limma.
 #'@param data a data.frame or matrix object with counts.
 #'@param groups the group labels for the samples (sorted accoring to the column names).
 #'@param pair a vector with the two groups to be compared
@@ -1613,7 +1613,7 @@ f.two.groups.limma <- function(data, groups, pair, method = "TMM", batch = c()) 
 #######################################################################################################################################
 #######################################################################################################################################
 #######################################################################################################################################
-#' Perform all pairwise comparisons in an experiment with several groups.
+#'@title Perform all pairwise comparisons in an experiment with several groups.
 #'@param data a data.frame or matrix object with counts.
 #'@param samples vector with the sample names - same length and sorting as groups.
 #'@param groups vector with the groups the samples belong to.
@@ -1652,7 +1652,7 @@ f.all.pairwise.comparisons <- function(data, samples, groups, DEFUN, method = "n
 #######################################################################################################################################
 #######################################################################################################################################
 #######################################################################################################################################
-#' Perform multiple series of pairwise comparisons.
+#'@title Perform multiple series of pairwise comparisons.
 #'@param data a data.frame or matrix object with counts.
 #'@param samples vector with the sample names - same length and sorting as groups.
 #'@param groups vector with the groups the samples belong to.
@@ -1686,7 +1686,7 @@ f.multiple.all.pairwise.comparisons <- function(data, samples, groups, batch = c
 #######################################################################################################################################
 #######################################################################################################################################
 #######################################################################################################################################
-#' Perform a series of two group comparisons.
+#'@title Perform a series of two group comparisons.
 #'@param data a data.frame or matrix object with counts.
 #'@param groups the group labels for the samples (sorted accoring to the column names).
 #'@param pair a vector with the two groups to be compared.
@@ -1719,7 +1719,7 @@ f.multiple.two.group.comparisons <- function(data, groups, pair, batch = c()) {
 #######################################################################################################################################
 #######################################################################################################################################
 #######################################################################################################################################
-#' Perform a pairwise series of two group comparisons.
+#'@title Perform a pairwise series of two group comparisons.
 #'@param data a data.frame or matrix object with counts.
 #'@param samples vector with the sample names - same length and sorting as groups.
 #'@param groups vector with the groups the samples belong to.
@@ -1757,7 +1757,7 @@ f.multiple.two.group.comparisons.pairwise <- function(data, samples, groups, bat
 #######################################################################################################################################
 #######################################################################################################################################
 #######################################################################################################################################
-#' Combine two or more columns of a sample table for DE testing with multiple groups.
+#'@title Combine two or more columns of a sample table for DE testing with multiple groups.
 #'@param sampleTab a table with samples as rownames, variables as colnames, and their levels as entires.
 #'@param colsToUse the columns which should be combined.
 #'@return the sample table with an additional column
@@ -1773,7 +1773,7 @@ f.combine.factors.of.sample.table <- function(sampleTab, colsToUse = colnames(sa
 #######################################################################################################################################
 #######################################################################################################################################
 #######################################################################################################################################
-#' get the names resulting from a DESeq2 model - just a helper
+#'@title get the names resulting from a DESeq2 model - just a helper
 #'@param sampleTab a data.frame with grouping variables:
 #'rownames are samples, colnames are variables for the model, and entries are factor levels.
 #'@param formulaString a string holding the formula of the model - results .
@@ -1805,7 +1805,7 @@ f.get.result.names.and.model.matrix <- function(sampleTab, formulaString) {
 #######################################################################################################################################
 #######################################################################################################################################
 #######################################################################################################################################
-#' Perform multi-level comparisons with DESeq2. This function is NOT FOR MULTIPLE FACTORS.
+#'@title Perform multi-level comparisons with DESeq2. This function is NOT FOR MULTIPLE FACTORS.
 #'@param data a data.frame or matrix object with counts.
 #'@param sampleTab a data.frame with grouping variables:
 #'rownames are samples, colnames are variables for the model, and entries are factor levels.
@@ -1845,7 +1845,7 @@ f.multi.level.DESeq <- function(data, sampleTab, formulaString, contrastsToTest,
 #######################################################################################################################################
 #######################################################################################################################################
 #######################################################################################################################################
-#' Perform multi-level comparisons with edgeR. This function is NOT FOR MULTIPLE FACTORS.
+#'@title Perform multi-level comparisons with edgeR. This function is NOT FOR MULTIPLE FACTORS.
 #'@param data a data.frame or matrix object with counts.
 #'@param sampleTab a data.frame with grouping variables:
 #'rownames are samples, colnames are variables for the model, and entries are factor levels.
@@ -1894,7 +1894,7 @@ f.multi.level.edgeR <- function(data, sampleTab, formulaString, contrastsToTest,
 #######################################################################################################################################
 #######################################################################################################################################
 #######################################################################################################################################
-#' Perform multi-level comparisons with limma. This function is NOT FOR MULTIPLE FACTORS.
+#'@title Perform multi-level comparisons with limma. This function is NOT FOR MULTIPLE FACTORS.
 #'@param data a data.frame or matrix object with counts.
 #'@param sampleTab a data.frame with grouping variables:
 #'rownames are samples, colnames are variables for the model, and entries are factor levels.
@@ -1942,7 +1942,7 @@ f.multi.level.limma <- function(data, sampleTab, formulaString, contrastsToTest,
 #######################################################################################################################################
 #######################################################################################################################################
 #######################################################################################################################################
-#' Perform a series of multi level tests.
+#'@title Perform a series of multi level tests.
 #'@param data a data.frame or matrix object with counts.
 #'@param sampleTab a data.frame with grouping variables:
 #'rownames are samples, colnames are variables for the model, and entries are factor levels.
@@ -1979,7 +1979,7 @@ f.multiple.multi.level.comparisons <- function(data, sampleTab, formulaString, c
 #######################################################################################################################################
 #######################################################################################################################################
 #######################################################################################################################################
-#' A helper function for the two-by-two factor/level analysis functions
+#'@title A helper function for the two-by-two factor/level analysis functions
 #'@param sampleTab a data.frame with grouping variables:
 #'rownames are samples, colnames are variables for the model, and entries are factor levels.
 #'only the variable in the model is relevant - and this should only be one. 
@@ -2027,7 +2027,7 @@ f.prepare.two.by.two.analysis <- function(sampleTab, factorA, factorB, batchCol 
 #######################################################################################################################################
 #######################################################################################################################################
 #######################################################################################################################################
-#' Perform a two-by-two factor/level analysis with DESeq
+#'@title Perform a two-by-two factor/level analysis with DESeq
 #'@param data a data.frame or matrix object with counts.
 #'@param sampleTab a data.frame with grouping variables:
 #'rownames are samples, colnames are variables for the model, and entries are factor levels.
@@ -2059,7 +2059,7 @@ f.two.by.two.DESeq <- function(data, sampleTab, factorA, factorB, method = "defa
 #######################################################################################################################################
 #######################################################################################################################################
 #######################################################################################################################################
-#' Perform a two-by-two factor/level analysis with EdgeR
+#'@title Perform a two-by-two factor/level analysis with EdgeR
 #'@param data a data.frame or matrix object with counts.
 #'@param sampleTab a data.frame with grouping variables:
 #'rownames are samples, colnames are variables for the model, and entries are factor levels.
@@ -2111,7 +2111,7 @@ f.two.by.two.edgeR <- function(data, sampleTab, factorA, factorB, method = "tren
 #######################################################################################################################################
 #######################################################################################################################################
 #######################################################################################################################################
-#' Perform a two-by-two factor/level analysis with limma
+#'@title Perform a two-by-two factor/level analysis with limma
 #'@param data a data.frame or matrix object with counts.
 #'@param sampleTab a data.frame with grouping variables:
 #'rownames are samples, colnames are variables for the model, and entries are factor levels.
@@ -2158,7 +2158,7 @@ f.two.by.two.limma <- function(data, sampleTab, factorA, factorB, method = "TMM"
 #######################################################################################################################################
 #######################################################################################################################################
 #######################################################################################################################################
-#' Perform a series of two-by-two factor/level tests.
+#'@title Perform a series of two-by-two factor/level tests.
 #'@param data a data.frame or matrix object with counts.
 #'@param sampleTab a data.frame with grouping variables:
 #'rownames are samples, colnames are variables for the model, and entries are factor levels.
@@ -2197,7 +2197,7 @@ f.multiple.two.by.two.comparisons <- function(data, sampleTab, factorA, factorB,
 #######################################################################################################################################
 #######################################################################################################################################
 #######################################################################################################################################
-#' Write out an overview, the individual results, and a table with gene descriptions to a workbook.
+#'@title Write out an overview, the individual results, and a table with gene descriptions to a workbook.
 #'@param DEGtabList a list with \code{\link{c.DEGtab}} objects. Names will be used as sheet names.
 #'@param rDir directory where the workbook will be saved.
 #'@param filePrefix a prefix for the name of the workbook ("_DE_results.xlsx" will be added).
@@ -2278,7 +2278,7 @@ f.write.DEGtabs.to.workbook <- function(DEGtabList, rDir, filePrefix, mart = NA,
 #######################################################################################################################################
 #######################################################################################################################################
 #######################################################################################################################################
-#' Write out set collections to a workbook.
+#'@title Write out set collections to a workbook.
 #'@param data any table with some data.
 #'@param setCollection the list returned by \code{\link{f.combine.a.list.of.sets}}
 #'@param rDir directory where things are stored.
@@ -2342,7 +2342,7 @@ f.write.set.collection.to.workbook <- function(data, setCollection, rDir, filePr
 #######################################################################################################################################
 #######################################################################################################################################
 #######################################################################################################################################
-#' Write out set collections to a workbook.
+#'@title Write out set collections to a workbook.
 #'@param data any table with data
 #'@param setCollection a list of sets - can be for example the list returned by \code{\link{f.combine.a.list.of.sets}}
 #'or \code{\link{f.extract.significant.entries.pairwise}}. Nested lists should be unlisted first.
@@ -2404,7 +2404,7 @@ f.write.multicolumn.sets.to.workbook <- function(data, setCollection, rDir, file
 #######################################################################################################################################
 #######################################################################################################################################
 #######################################################################################################################################
-#' Combine individual DE tabs and write all into one sheet.
+#'@title Combine individual DE tabs and write all into one sheet.
 #'@param data any table with additional data.
 #'@param DEGtabList a list with \code{\link{c.DEGtab}} objects.
 #'@param rDir directory where things are stored.
@@ -2471,7 +2471,7 @@ f.combine.DEGtabs.and.write.to.workbook <- function(data, DEGtabList, rDir, file
 #######################################################################################################################################
 #######################################################################################################################################
 #######################################################################################################################################
-#' Get chromosomes which should be kept.
+#'@title Get chromosomes which should be kept.
 #'@return a character vector with valid chromosomes
 #'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 f.internal.get.relevant.chromosomes <- function(chromList) {
@@ -2486,7 +2486,7 @@ f.internal.get.relevant.chromosomes <- function(chromList) {
 #######################################################################################################################################
 #######################################################################################################################################
 #######################################################################################################################################
-#' Retrieve promoter regions.
+#'@title Retrieve promoter regions.
 #'@param mart the mart to use (e.g. useMart("ensembl", dataset = "mmusculus_gene_ensembl"))
 #'@param rDir directory where the file is stored
 #'@param us upstream bp
@@ -2528,7 +2528,7 @@ f.get.promoter.regions <- function(mart, rDir, us = 2e3, ds = 5e2) {
 #######################################################################################################################################
 #######################################################################################################################################
 #######################################################################################################################################
-#' Retrieve TES regions.
+#'@title Retrieve TES regions.
 #'@param mart the mart to use (e.g. useMart("ensembl", dataset = "mmusculus_gene_ensembl"))
 #'@param rDir directory where the file is stored
 #'@param us upstream bp
@@ -2570,7 +2570,7 @@ f.get.TES.regions <- function(mart, rDir, us = 2e3, ds = 2e3) {
 #######################################################################################################################################
 #######################################################################################################################################
 #######################################################################################################################################
-#' Retrieve gene regions (from gene start to gene end).
+#'@title Retrieve gene regions (from gene start to gene end).
 #'@param mart the mart to use (e.g. useMart("ensembl", dataset = "mmusculus_gene_ensembl"))
 #'@param rDir directory where the file is stored
 #'@return the gene regions
@@ -2607,7 +2607,7 @@ f.get.gene.regions <- function(mart, rDir) {
 #######################################################################################################################################
 #######################################################################################################################################
 #######################################################################################################################################
-#' Retrieve transcript regions (from transcript start to transcript end).
+#'@title Retrieve transcript regions (from transcript start to transcript end).
 #'@param mart the mart to use (e.g. useMart("ensembl", dataset = "mmusculus_gene_ensembl"))
 #'@param rDir directory where the file is stored
 #'@return the transcript regions
@@ -2647,7 +2647,7 @@ f.get.transcript.regions <- function(mart, rDir) {
 #######################################################################################################################################
 #######################################################################################################################################
 #######################################################################################################################################
-#' Retrieve exon regions (from exon start to exon end).
+#'@title Retrieve exon regions (from exon start to exon end).
 #'@param mart the mart to use (e.g. useMart("ensembl", dataset = "mmusculus_gene_ensembl"))
 #'@param rDir directory where the file is stored
 #'@return the transcript regions
@@ -2698,7 +2698,7 @@ f.get.exon.regions <- function(mart, rDir) {
 #######################################################################################################################################
 #######################################################################################################################################
 #######################################################################################################################################
-#' Create Rcount project files
+#'@title Create Rcount project files
 #'@param sampleName name of the sample
 #'@param annotationXML path to the Rcount annotation file (.xml)
 #'@param readsInfile path to the input bam-file (.bam)
@@ -2712,9 +2712,9 @@ f.get.exon.regions <- function(mart, rDir) {
 #'@param minBelowMaxDist: see note
 #'@return NULL - creates a Rcount project file.
 #'@note Genes must have at least "minReads" reads in total and "minBelowMaxDist"_" reads
-#' within the first "maxDist" bps at the 3' end (see reference for details).
-#' The parameters may be chosen according to the total number of reads and
-#' the genome/transcriptome size.
+#'within the first "maxDist" bps at the 3' end (see reference for details).
+#'The parameters may be chosen according to the total number of reads and
+#'the genome/transcriptome size.
 #'@references 
 #'Schmid, M.W. and Grossniklaus, U. (2015)
 #'Rcount: simple and flexible RNA-Seq read counting.\emph{Bioinformatics} \bold{31}: 436-437.
@@ -2762,7 +2762,7 @@ f.write.Rcount.project.file <- function(sampleName, annotationXML, readsInfile, 
   return(NULL)
 }
 
-#' Downloads samples from SRA
+#'@title Downloads samples from SRA
 #'@param readsDir path to a folder where the raw read files will be stored.
 #'@param metaDB path to the SRA database with the metadata ("SRAmetadb.sqlite"); will be downloaded if the file does not exist.
 #'IMPORTANT: this file is sometimes not downloaded correctly or per se corrupt. If you encounter errors like "table does not exist",
@@ -2951,7 +2951,7 @@ f.wf.download.from.SRA <- function(readsDir, metaDB, mySamplesFile, autoAnnotati
 #######################################################################################################################################
 #######################################################################################################################################
 #######################################################################################################################################
-#' Align samples with Rsubread
+#'@title Align samples with Rsubread
 #'@param myAnnotation path to the *.csv with the curated annotation (based on the file created by \code{\link{f.wf.download.from.SRA}})
 #'@param readsDir path to a folder where the raw read files are stored.
 #'@param bamDir path to a folder where the aligned reads (bam files) will be stored.
@@ -3048,7 +3048,7 @@ f.wf.align.reads.with.Rsubread <- function(myAnnotation, readsDir, bamDir, nucIn
 #######################################################################################################################################
 #######################################################################################################################################
 #######################################################################################################################################
-#' Count reads per gene with featureCounts
+#'@title Count reads per gene with featureCounts
 #'@param myAnnotation path to the *.csv with the curated annotation (based on the file created by \code{\link{f.wf.download.from.SRA}})
 #'@param bamDir path to a folder where the aligned reads (bam files) are stored.
 #'@param gAnnFile path to the file with the genome annotation (GTF/GFF/SAF format).
@@ -3164,7 +3164,7 @@ f.wf.count.reads.with.featureCounts <- function(myAnnotation, bamDir, gAnnFile, 
 #######################################################################################################################################
 #######################################################################################################################################
 #######################################################################################################################################
-#' Sort bam files for Rcount
+#'@title Sort bam files for Rcount
 #'@param myAnnotation path to the *.csv with the curated annotation (based on the file created by \code{\link{f.wf.download.from.SRA}})
 #'@param bamDirIn path to a folder where the aligned reads (bam files) are stored.
 #'@param bamDirOut path to a folder where the sorted bam files will be stored.
@@ -3205,7 +3205,7 @@ f.wf.sort.bam.files <- function(myAnnotation, bamDirIn, bamDirOut = bamDirIn, ma
 #######################################################################################################################################
 #######################################################################################################################################
 #######################################################################################################################################
-#' Set weights of reads with multiple alignments using Rcount
+#'@title Set weights of reads with multiple alignments using Rcount
 #'@param myAnnotation path to the *.csv with the curated annotation (based on the file created by \code{\link{f.wf.download.from.SRA}})
 #'@param RcountMultir path to the Rcount-multireads executable
 #'@param bamDirIn path to a folder where the sorted bam files are stored.
@@ -3242,7 +3242,7 @@ f.wf.weight.multireads.with.Rcount <- function(myAnnotation, RcountMultir, bamDi
 #######################################################################################################################################
 #######################################################################################################################################
 #######################################################################################################################################
-#' Create Rcount project files.
+#'@title Create Rcount project files.
 #'@param myAnnotation path to the *.csv with the curated annotation (based on the file created by \code{\link{f.wf.download.from.SRA}})
 #'@param RcountPrePro path to the "prepareXMLfileForRcount.py" script.
 #'@param RcountProDir path to a folder where the Rcount project files will be stored.
@@ -3288,7 +3288,7 @@ f.wf.create.Rcount.projects <- function(myAnnotation, RcountPrePro, RcountProDir
 #######################################################################################################################################
 #######################################################################################################################################
 #######################################################################################################################################
-#' Count reads per gene with Rcount
+#'@title Count reads per gene with Rcount
 #'@param myAnnotation path to the *.csv with the curated annotation (based on the file created by \code{\link{f.wf.download.from.SRA}})
 #'@param RcountDistri path to the Rcount-distribute executable
 #'@param RcountProDir path to a folder where the Rcount project files will be stored.
