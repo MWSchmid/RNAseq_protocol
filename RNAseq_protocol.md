@@ -62,36 +62,36 @@ After completing the Cygwin installation, start Cygwin, type "R" and press enter
 
 ### Other software and packages (all platforms)
 1. Bioconductor packages and other dependencies. Start R and type:
-    ```R
-    source("http://bioconductor.org/biocLite.R")
-    biocLite()
-    biocLite(c("SRAdb", "Rsamtools", "Rsubread", 
-               "biomaRt", "DESeq2", "edgeR",
-               "limma", "XLConnect", "gplots",
-               "colorRamps", "ShortRead"))
-    # Note for Windows users: 
-    # I recommend using the "Cygwin R" only for 
-    # the data pre-processing. Only SRAdb, Rsamtools
-    # and Rsubread are required for this part.
-    # All the other libraries should be installed 
-    # on the "native Windows R".
-    # Important for Windows users:
-    # Current versions of Rsubread may fail to compile
-    # on Cygwin and multithreading may be limited as well.
-    # It is unclear if and when this will be fixed.
-    # You can download version 1.16.1 from 
-    # bioconductor.org/packages/3.0/bioc/
-    # src/contrib/Rsubread_1.16.1.tar.gz
-    # and install it in R with:
-    install.packages("/path/to/Rsubread_1.16.1.tar.gz")
-    ```
+```R
+source("http://bioconductor.org/biocLite.R")
+biocLite()
+biocLite(c("SRAdb", "Rsamtools", "Rsubread", 
+"biomaRt", "DESeq2", "edgeR",
+"limma", "XLConnect", "gplots",
+"colorRamps", "ShortRead"))
+# Note for Windows users: 
+# I recommend using the "Cygwin R" only for 
+# the data pre-processing. Only SRAdb, Rsamtools
+# and Rsubread are required for this part.
+# All the other libraries should be installed 
+# on the "native Windows R".
+# Important for Windows users:
+# Current versions of Rsubread may fail to compile
+# on Cygwin and multithreading may be limited as well.
+# It is unclear if and when this will be fixed.
+# You can download version 1.16.1 from 
+# bioconductor.org/packages/3.0/bioc/
+# src/contrib/Rsubread_1.16.1.tar.gz
+# and install it in R with:
+install.packages("/path/to/Rsubread_1.16.1.tar.gz")
+```
 2. Download [RNAseqWrapper](RNAseqWrapper_0.99.0.tar.gz?raw=true) and install it in R with:
-    ```R
-    install.packages("/path/to/RNAseqWrapper_0.99.0.tar.gz",
-                     repos = NULL, type = "source")
-    # Note for Windows users: 
-    # Install this package only in the "native Windows R".
-    ```
+```R
+install.packages("/path/to/RNAseqWrapper_0.99.0.tar.gz",
+repos = NULL, type = "source")
+# Note for Windows users: 
+# Install this package only in the "native Windows R".
+```
 3. Download the archive [workFlowData.zip](workFlowData.zip?raw=true) and unpack it.
 4. The workflow includes featureCounts to count the number of reads per gene. However, if you would like to specifically address the problem of reads aligning with multiple locations in the genome (multireads) or reads aligning with positions where two or more genes overlap (ambiguous reads), you can use Rcount. Download the archive matching your operating system from [github.com/MWSchmid/Rcount](https://github.com/MWSchmid/Rcount) and unpack it. 
 
