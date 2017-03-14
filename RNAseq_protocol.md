@@ -531,6 +531,11 @@ rownames(sampleTab) <- sampleTab$sampleID
 
 # Sort the reads in the bam files according to 
 # chromosome and position, and create an index.
+# Note that this can take quite some time.
+# Windows: R may become unresponsive while processing
+# (without displaying the progress). Check the folder
+# "bamDir" regularly to see whether it is still processing
+# or if it failed.
 for (cSam in rownames(sampleTab)) {
   cat("processing", cSam, "...\n")
   inFile <- file.path(bamDir, paste0(cSam, ".bam"))
@@ -755,27 +760,6 @@ for (dT in names(myDataList)) {
                      skipScatters = TRUE)
 }
 
-# Normalize the data and save all tables.
-myNormData <- lapply(myDataList, function(x) 
-  f.all.normalizations(x, sampleTab, formulaString, design))
-for (dT in names(myNormData)) {
-  for (nM in names(myNormData[[dT]])) {
-    write.csv(myNormData[[dT]][[nM]],
-      file.path(rDir, paste0(dT, '_', nM, "_normalized.csv")))
-  }
-}
-
-# Calculate the average expression level across a 
-# specific condition (average across replicates).
-byTab <- data.frame(sample = rownames(sampleTab),
-                    group = sampleTab$SFAC__,
-                    stringsAsFactors = FALSE)
-meanTabs <- list()
-for (dT in names(myDataList)) {
-  meanTabs[[dT]] <- lapply(myNormData[[dT]], function(x)
-    f.summarize.columns(x, byTab, mean))
-}
-
 # Test for differential expression.
 results <- lapply(myDataList, function(x)
   f.multiple.multi.level.comparisons(x, sampleTab,
@@ -792,4 +776,32 @@ for (dT in names(results)) {
 # Note that warning messages containing 
 # is.na() applied to non-(list or vector)...
 # can be ignored.
+
+# Optional: Normalize the data and calculate the
+# average expression levels across the specific
+# conditions (average across replicates). Store
+# the results for later use in .csv tables.
+
+# Run all the normalizations.
+myNormData <- lapply(myDataList, function(x)
+  f.all.normalizations(x, sampleTab, formulaString, design))
+
+# Define how the samples should be averaged.
+byTab <- data.frame(sample = rownames(sampleTab),
+                    group = sampleTab$SFAC__,
+                    stringsAsFactors = FALSE)
+
+# Average the normalized data.
+meanTabs <- lapply(myNormData, function(x)
+  lapply(x, function(y) f.summarize.columns(y, byTab, mean)))
+
+# Store the tables in .csv format.
+for (dT in names(myNormData)) {
+  for (nM in names(myNormData[[dT]])) {
+    write.csv(myNormData[[dT]][[nM]], file.path(rDir,
+              paste0(dT, '_', nM, "_normalized.csv")))
+    write.csv(meanTabs[[dT]][[nM]], file.path(rDir,
+              paste0(dT, '_', nM, "_normalizedMeans.csv")))
+  }
+}
 ```
