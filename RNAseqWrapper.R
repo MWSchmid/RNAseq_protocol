@@ -2782,8 +2782,11 @@ f.sort.bam.parallel <- function(bamFiles, bamDirIn, bamDirOut, numCores = 4, max
   toSort <- list()
   for (curFile in bamFiles) {
     curFile <- basename(curFile) # remove directory if present
-    curName <- gsub("\\.bam$", "", curFile) # remove extension
     infile <- file.path(bamDirIn, curFile)
+    if (!file.exists(infile)) {
+      stop(paste("file:", infile, "does not exist"))
+    }
+    curName <- gsub("\\.bam$", "", curFile) # remove extension
     outfileNoExt <- file.path(bamDirOut, paste0(curName, "_srt"))
     outfile <- paste0(outfileNoExt, ".bam")
     toSort[[curName]] <- c(infile, outfileNoExt, outfile)
