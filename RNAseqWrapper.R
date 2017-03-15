@@ -1107,11 +1107,11 @@ f.combine.a.list.of.sets <- function(data, combination) {
 #'@title Formulate a simple contrast using two sets of regular expressions.
 #'@param plusTermsRE a vector of regular expressions or strings for the terms which will be summed up.
 #'@param minusTermsRE a vector of regular expressions or strings for the terms which will be substracted.
-#'@param design a design matrix obtained with \code{model.matrix}
+#'@param design a design matrix obtained with \code{\link{model.matrix}}.
 #'@param invertPlus see note below
 #'@param invertMinus see note below
-#'@param fixed set to TRUE to disable regular expression mode of \code{\link{grep}}
-#'@return a string containing the contrast definition (to use in \code{\link{makeContrast}})
+#'@param fixed set to TRUE to disable regular expression mode of \code{\link{grep}}.
+#'@return a string containing the contrast definition (to be used in \code{\link{makeContrast}}).
 #'@note The function will use \code{\link{grep}} to retrieve all \code{colnames(design)} 
 #'which fit to either the plusTermsRE or the minusTermsRE. The contrast is then formulated as
 #'plusTerms/length(plusTerms) - minusTerms/length(minusTerms). If invertPlus/invertMinus are set
@@ -2762,6 +2762,64 @@ f.write.Rcount.project.file <- function(sampleName, annotationXML, readsInfile, 
   return(NULL)
 }
 
+#######################################################################################################################################
+#######################################################################################################################################
+#######################################################################################################################################
+#'@title Sort several bam files in parallel
+#'@param bamFiles a vector with the bam files to be sorted (with or without the directory).
+#'@param bamDirIn path to a folder where the aligned reads (bamFiles) are stored.
+#'@param bamOutDir path to a folder where the sorted bam files will be stored.
+#'@param numCores number of parallel cores/threads.
+#'@param maxMemPerCore the maximal amount of RAM used by one thread (in Mb).
+#'@return a list with two vectors (success, fail). Files listed in out$fail were not sorted successfully.
+#'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
+#'@export
+f.sort.bam.parallel <- function(bamFiles, bamDirIn, bamDirOut, numCores = 4, maxMemPerCore = 3600) {
+  require("Rsamtools")
+  require("parallel")
+  
+  # Create a list for mclapply
+  toSort <- list()
+  for (curFile in bamFiles) {
+    curFile <- basename(curFile) # remove directory if present
+    curName <- gsub("\\.bam$", "", curFile) # remove extension
+    infile <- file.path(bamDirIn, curFile)
+    outfileNoExt <- file.path(bamDirOut, paste0(curName, "_srt"))
+    outfile <- paste0(outfileNoExt, ".bam")
+    toSort[[curName]] <- c(infile, outfileNoExt, outfile)
+  }
+  
+  # Internal function for sorting and indexing
+  sortAndIndexBam <- function(entry, mmpc) {
+    sortBam(entry[1], entry[2], maxMemory = mmpc)
+    indexBam(entry[3])
+  }
+  
+  # Sort the reads in the bam files according to 
+  # chromosome and position, and create an index.
+  cat("Sorting bam files...\n")
+  cat("Note that warning messages containing\n")
+  cat("[bam_sort_core] merging from X files\n")
+  cat("can be ignored.\n")
+  mclapply(toSort, function(x) sortAndIndexBam(x, maxMemPerCore), mc.cores = numCores)
+  cat("Note that warning messages containing\n")
+  cat("[bam_sort_core] merging from X files\n")
+  cat("can be ignored.\n")
+  
+  # Check if all files are present
+  out <- list(success = c(), fail = c())
+  for (curEntry in toSort) {
+    if (file.exists(curEntry[3]) & file.exists(paste0(curEntry[3], ".bai"))) {
+      out$success <- c(out$success, curEntry[3])
+    } else {
+      out$fail <- c(out$fail, curEntry[1])
+    }
+  }
+
+  # Return the list with successfully sorted and failed files.
+  return(out)
+}
+
 #'@title Downloads samples from SRA
 #'@param readsDir path to a folder where the raw read files will be stored.
 #'@param metaDB path to the SRA database with the metadata ("SRAmetadb.sqlite"); will be downloaded if the file does not exist.
@@ -3168,12 +3226,13 @@ f.wf.count.reads.with.featureCounts <- function(myAnnotation, bamDir, gAnnFile, 
 #'@param myAnnotation path to the *.csv with the curated annotation (based on the file created by \code{\link{f.wf.download.from.SRA}})
 #'@param bamDirIn path to a folder where the aligned reads (bam files) are stored.
 #'@param bamDirOut path to a folder where the sorted bam files will be stored.
-#'@param maxMem the maximal amount of RAM to use (in Mb).
+#'@param numCores number of parallel cores/threads.
+#'@param maxMemPerCore the maximal amount of RAM used by one thread (in Mb).
 #'@return TRUE if there is no error.
 #'@note This is a top level wrapper function - see github.com/MWSchmid/RNAseq_protocol for details.
 #'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 #'@export
-f.wf.sort.bam.files <- function(myAnnotation, bamDirIn, bamDirOut = bamDirIn, maxMem = 8192) {
+f.wf.sort.bam.files <- function(myAnnotation, bamDirIn, bamDirOut = bamDirIn, numCores = 4, maxMem = 3600) {
   require("Rsamtools")
   
   # Import the sample annotation.
@@ -3183,23 +3242,20 @@ f.wf.sort.bam.files <- function(myAnnotation, bamDirIn, bamDirOut = bamDirIn, ma
   
   # Sort the reads in the bam files according to 
   # chromosome and position, and create an index.
-  cat("Sorting bam files...\n")
-  cat("Note that warning messages containing\n")
-  cat("[bam_sort_core] merging from X files\n")
-  cat("can be ignored.\n")
-  for (cSam in rownames(sampleTab)) {
-    cat("[SORT] processing", cSam, "...\n")
-    inFile <- file.path(bamDirIn, paste0(cSam, ".bam"))
-    outFile <- file.path(bamDirOut, paste0(cSam, "_srt"))
-    sortBam(inFile, outFile, maxMemory = maxMem)  # adjust RAM
-    indexBam(paste0(outFile, ".bam"))
-  }
-  cat("Note that warning messages containing\n")
-  cat("[bam_sort_core] merging from X files\n")
-  cat("can be ignored.\n")
+  bamFiles <- paste0(rownames(sampleTab), ".bam")
+  sorted <- f.sort.bam.parallel(bamFiles, bamDirIn, bamDirOut,
+                                numCores, maxMemPerCore)
 
-  # Return TRUE for success.
-  return(TRUE)
+  # Check if all files were sorted and indexed successfully.
+  if (length(sorted$fail) > 0) {
+    cat("some files were not sorted or indexed.\n")
+    cat(paste0(sorted$fail, collapse = '\n'), '\n')
+    out <- FALSE
+  } else {
+    out <- TRUE
+  }
+  
+  return(out)
 }
 
 #######################################################################################################################################
