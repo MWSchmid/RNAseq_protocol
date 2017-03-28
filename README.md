@@ -67,7 +67,7 @@ However, you might have processed these samples as well in batches:
 
 ## Two-by-two crossed factorial design
 
-You may have two factors in your experiment, e.g. genetic background (wildType vs mutant) and drug treatment (mock vs drug). For cases where one (or both) of the factors have more than two levels (e.g. many different mutants), I recommend to use the approach below. However, in case of two two-level-factors we may also used a crossed factorial design (with/without batch):
+You may have two factors in your experiment, e.g. genetic background (wildType vs mutant) and drug treatment (mock vs drug). For cases where one (or both) of the factors have more than two levels (e.g. many different mutants), I recommend to use the approach below. However, in case of two two-level-factors we may also use a crossed factorial design (with/without batch):
 
 [two-by-two factorial design](examples/TBTNB.md)
 
