@@ -594,7 +594,8 @@ f.wide.to.long <- function(tab, cols, newName) {
 #'@author Marc W. Schmid \email{contact@@mwschmid.ch}.
 #'@export
 f.long.to.wide <- function(tab, futureRows, futureCols, futureEntries) {
-  empty <- ifelse(is.numeric(tab[[futureEntries]]), 0, "")
+  #empty <- ifelse(is.numeric(tab[[futureEntries]]), 0, "")
+  empty <- NA
   rn <- unique(as.character(tab[[futureRows]]))
   cn <- unique(as.character(tab[[futureCols]]))
   out <- as.data.frame(matrix(empty, nrow = length(rn), ncol = length(cn), dimnames = list(rn, cn)))
