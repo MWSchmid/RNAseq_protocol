@@ -1213,8 +1213,13 @@ f.normalize.counts.limma <- function(data, design, method = "none") {
 f.normalize.counts.DESeq <- function(data, sampleTab, formulaString, tryRescue = FALSE) {
   require("DESeq2")
   if (length(grep("0\\+|0 \\+", formulaString)) == 1) {
-    cat("removing the no intercept (0+) term for DESeq to enable LFC shrinkage\n")
-    formulaString <- gsub("0\\+|0 \\+", "", formulaString)
+    DESeq2version <- sessionInfo()$otherPkgs$DESeq2$Version
+    if (as.numeric(unlist(strsplit(DESeq2version, '.', fixed = TRUE))[2]) < 16) {
+      cat("WARNING: this changed in one version - at least from 1.16.1 on it's not necessary anymore.")
+      cat("if you get: Error in checkContrast(contrast, resNames): numeric contrast vector should have one element for every element of 'resultsNames(object)', update DESeq2.")
+      cat("removing the no intercept (0+) term for DESeq to enable LFC shrinkage\n")
+      formulaString <- gsub("0\\+|0 \\+", "", formulaString)
+    }
   }
   dds <- DESeqDataSetFromMatrix(countData = round(data[,rownames(sampleTab)]), colData = sampleTab, design = formula(formulaString))
   if (tryRescue) {
@@ -1821,9 +1826,16 @@ f.get.result.names.and.model.matrix <- function(sampleTab, formulaString) {
 f.multi.level.DESeq <- function(data, sampleTab, formulaString, contrastsToTest, design = "none", method = "default", tryRescue = FALSE) {
   require("DESeq2")
   cat("running multi-level comparison with DESeq2\n")
+  removedNoIntercept <- FALSE
   if (length(grep("0\\+|0 \\+", formulaString)) == 1) {
-    cat("removing the no intercept (0+) term for DESeq to enable LFC shrinkage\n")
-    formulaString <- gsub("0\\+|0 \\+", "", formulaString)
+    DESeq2version <- sessionInfo()$otherPkgs$DESeq2$Version
+    if (as.numeric(unlist(strsplit(DESeq2version, '.', fixed = TRUE))[2]) < 16) {
+      cat("WARNING: this changed in one version - at least from 1.16.1 on it's not necessary anymore.")
+      cat("if you get: Error in checkContrast(contrast, resNames): numeric contrast vector should have one element for every element of 'resultsNames(object)', update DESeq2.")
+      cat("removing the no intercept (0+) term for DESeq to enable LFC shrinkage\n")
+      formulaString <- gsub("0\\+|0 \\+", "", formulaString)
+      removedNoIntercept <- TRUE
+    }
   }
   contrastsToTest <- as.data.frame(contrastsToTest)
   dds <- DESeqDataSetFromMatrix(countData = round(data[,rownames(sampleTab)]), colData = sampleTab, design = formula(formulaString))
@@ -1834,7 +1846,12 @@ f.multi.level.DESeq <- function(data, sampleTab, formulaString, contrastsToTest,
   } else {
     dds <- DESeq(dds)
   }
-  conRes <- lapply(contrastsToTest, function(x) as.data.frame(results(dds, contrast = c(0,x)))) # the zero is for the intercept added in DESeq2
+  if (removedNoIntercept) {
+    conRes <- lapply(contrastsToTest, function(x) as.data.frame(results(dds, contrast = c(0,x)))) # the zero is for the intercept added in DESeq2
+  } else {
+    conRes <- lapply(contrastsToTest, function(x) as.data.frame(results(dds, contrast = x))) # the zero is for the intercept added in DESeq2
+  }
+  
   conRes <- lapply(conRes, function(x) data.frame(generic = x$baseMean, logFC = x$log2FoldChange, pVal = x$pvalue, adjP = x$padj, row.names = rownames(x)))
   out <- list()
   for (cont in names(conRes)) {
