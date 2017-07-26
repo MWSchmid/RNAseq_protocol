@@ -41,7 +41,7 @@ install.packages("/path/to/RNAseqWrapper_0.99.1.tar.gz", repos=NULL)
 install.packages("/path/to/RNAseqWrapper_0.99.1.tar.gz", repos=NULL, type="source")
 ```
 
-Please note that the original version of the package (used in the workflow) is available here: [RNAseqWrapper](RNAseqWrapper_0.99.1.tar.gz?raw=true). The newer version contains a bugfix which was caused by an update in DESeq2. At least with DESeq2 >= 1.16.1, you should use the new version of RNAseqWrapper.
+Please note that the original version of the package (used in the workflow) is available here: [RNAseqWrapper 0.99.0](RNAseqWrapper_0.99.0.tar.gz?raw=true). The newer version contains a bugfix which was caused by an update in DESeq2. At least with DESeq2 >= 1.16.1, you should use the new version of RNAseqWrapper.
 
 # RNAseq data analysis examples
 
