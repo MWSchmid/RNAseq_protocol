@@ -2,7 +2,7 @@
 
 The data provided below is taken from [TCGA](http://cancergenome.nih.gov/). It contains the RNA-Seq V2 data (RSEM, gene level, raw) for all publicly available data sets (April 2016). In total there would be around 11'700 samples. However, many of them were not sampled in a "paired fashion" (for most patients/participants there is only data on the tumor sample available). The data below is restricted to the paired cases - meaning that we have both, normal and tumor tissue samples, for one study participant (this are almost exclusively sample types "NT" and "PT" - I therefore restricted it further to those two; see [TCGA-Barcode](https://wiki.nci.nih.gov/display/TCGA/Working+with+TCGA+Data#WebServices-Barcode-UUIDMapping) for more explanations). The sample annotation table is based on the TCGA barcodes. Note that I added "uuid_" in front of the UUIDs. The reason for this is that they frequently start with a number, which does not work if you want to use them as colnames() in R. 
 
-Download [the archive with the data and the annotation](TCGA_pairedData.csv?raw=true) and unpack it. Place the file into the working directory specified in the script.
+Download [the archive with the data and the annotation](TCGA_pairedData.zip?raw=true) and unpack it. Place the file into the working directory specified in the script.
 
 ## Identify genes differentially expressed between normal and tumor tissues - for each cancer type
 
