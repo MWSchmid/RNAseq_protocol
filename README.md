@@ -1,6 +1,6 @@
 # RNAseq_protocol
 
-For updates on the entire workflow published in [not yet published](), visit:
+For updates on the entire workflow published in [Plant Germline Development (Methods in Molecular Biology)](https://doi.org/10.1007/978-1-4939-7286-9_24), visit:
 
 [RNA-Seq data analysis protocol: combining in-house and publicly available data](RNAseq_protocol.md)
 
